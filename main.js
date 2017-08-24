@@ -11,6 +11,7 @@ let win
 
 const filename = 'index.html'
 const accepted_file_extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'tif', 'tiff', 'svg', 'svgz', 'pdf', 'bmp', 'dib']
+const re_ext = /(?:\.([^.]+))?$/
 
 console.log(dialog)
 
@@ -20,16 +21,17 @@ function createWindow () {
 
   win.webContents.on('will-navigate', (event, url) => {
 
-    let file_extension = url.substring(url.lastIndexOf('.') + 1, url.length)
-    console.log(file_extension)
+    // Extract file extension with regex
+    let file_extension = re_ext.exec(url)[1]
 
     // Filter acceptable extensions by the current file extension
     let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
 
+    // Found acceptable file extension else prevent navigate
     if(isAcceptable.length){
-      console.log('accepted!')
+      console.log(file_extension, 'accepted!')
     } else {
-      console.log('unacceptable!')
+      console.log(file_extension, 'unacceptable!')
       event.preventDefault()
     }
   })
