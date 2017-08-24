@@ -11,7 +11,6 @@ let win
 
 const filename = 'index.html'
 const accepted_file_extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'tif', 'tiff', 'svg', 'svgz', 'pdf', 'bmp', 'dib']
-const re_ext = /(?:\.([^.]+))?$/
 
 console.log(dialog)
 
@@ -21,8 +20,8 @@ function createWindow () {
 
   win.webContents.on('will-navigate', (event, url) => {
 
-    // Extract file extension with regex
-    let file_extension = re_ext.exec(url)[1]
+    // Extract file extension if dot
+    let file_extension = url.split('.').pop()
 
     // Filter acceptable extensions by the current file extension
     let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
