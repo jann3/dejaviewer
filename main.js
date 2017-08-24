@@ -8,13 +8,32 @@ const {dialog} = require('electron')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+
 const filename = 'index.html'
+const accepted_file_extensions = ['jpg', 'jpeg', 'png']
 
 console.log(dialog)
 
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({width: 300, height: 200})
+
+  win.webContents.on('will-navigate', (event, url) => {
+    console.log('accepted files:', accepted_file_extensions)
+    
+    console.log(event)
+    console.log(url)
+
+    
+
+    let fileext = url.substring(url.lastIndexOf('.') + 1, url.length)
+    console.log(fileext)
+
+    if (fileext !== "png"){
+      event.preventDefault()
+    }
+
+  })
 
   // and load the index.html of the app.
   win.loadURL(url.format({
