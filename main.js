@@ -21,7 +21,7 @@ function createWindow () {
   win.webContents.on('will-navigate', (event, url) => {
 
     // Extract file extension if dot
-    let file_extension = url.split('.').pop()
+    let file_extension = url.split('.').pop().toLowerCase()
 
     // Filter acceptable extensions by the current file extension
     let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
