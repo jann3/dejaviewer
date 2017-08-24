@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
 const fs = require('fs')
@@ -10,12 +10,11 @@ const {dialog} = require('electron')
 let win
 const filename = 'index.html'
 
-
 console.log(dialog)
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({width: 300, height: 200})
 
   // and load the index.html of the app.
   win.loadURL(url.format({
@@ -43,6 +42,12 @@ function createWindow () {
     }
   })
 }
+
+// ipcMain receives messages from other windows
+ipcMain.on('message', (event, arg) => {
+  console.log('receiving')
+  console.log(arg)  // prints "ping"
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

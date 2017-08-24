@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <title>Viewer</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript">
+    const {ipcRenderer} = require('electron')
+
+    function send(){
+      console.log('sending')
+      ipcRenderer.send('message', 'ping')
+    }
+    </script>
   </head>
   <body>
     <input id="fileInput" type="file" style="display:none;" />
     <input type="button" value="Open" onclick="document.getElementById('fileInput').click();" />
+    <button onclick="send()">Message main thread</button>
   </body>
 </html>
