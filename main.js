@@ -24,15 +24,17 @@ function createWindow () {
     console.log(event)
     console.log(url)
 
-    
+    let file_extension = url.substring(url.lastIndexOf('.') + 1, url.length)
+    console.log(file_extension)
 
-    let fileext = url.substring(url.lastIndexOf('.') + 1, url.length)
-    console.log(fileext)
+    let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
 
-    if (fileext !== "png"){
+    if(isAcceptable.length){
+      console.log('accepted!')
+    } else {
+      console.log('unacceptable!')
       event.preventDefault()
     }
-
   })
 
   // and load the index.html of the app.
