@@ -10,7 +10,7 @@ const {dialog} = require('electron')
 let win
 
 const filename = 'index.html'
-const accepted_file_extensions = ['jpg', 'jpeg', 'png']
+const accepted_file_extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'tif', 'tiff', 'svg', 'svgz', 'pdf', 'bmp', 'dib']
 
 console.log(dialog)
 
@@ -19,14 +19,11 @@ function createWindow () {
   win = new BrowserWindow({width: 300, height: 200})
 
   win.webContents.on('will-navigate', (event, url) => {
-    console.log('accepted files:', accepted_file_extensions)
-    
-    console.log(event)
-    console.log(url)
 
     let file_extension = url.substring(url.lastIndexOf('.') + 1, url.length)
     console.log(file_extension)
 
+    // Filter acceptable extensions by the current file extension
     let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
 
     if(isAcceptable.length){
