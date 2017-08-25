@@ -10,7 +10,7 @@ const {dialog} = require('electron')
 let win
 
 const filename = 'index.html'
-const accepted_file_extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'tif', 'tiff', 'svg', 'svgz', 'pdf', 'bmp', 'dib']
+const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm']
 
 console.log(dialog)
 
