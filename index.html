@@ -14,8 +14,17 @@
     </script>
   </head>
   <body>
-    <input id="fileInput" type="file" style="display:none;" />
-    <input type="button" value="Open" onclick="document.getElementById('fileInput').click();" />
-    <button onclick="send()">Message main thread</button>
+    <div class="container">
+      <div class="item-a">
+          <input id="fileInput" type="file" style="display:none;" />
+          <input type="button" value="Open" onclick="document.getElementById('fileInput').click();" />
+      </div>
+      <div class="item-b"></div>
+      <div class="item-c"></div>
+      <div class="item-d">
+        <button onclick="send()">Message main thread</button>
+      </div>
+      
+    </div>
   </body>
 </html>
