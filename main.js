@@ -63,9 +63,8 @@ function createWindow () {
 }
 
 // ipcMain receives messages from other windows
-ipcMain.on('message', (event, arg) => {
-  console.log('receiving')
-  console.log(arg)  // prints "ping"
+ipcMain.on('filepath', (event, arg) => {
+  console.log('receiving', arg)
 })
 
 // This method will be called when Electron has finished
