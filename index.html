@@ -2,15 +2,36 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Viewer</title>
+    <title>DejaViewer</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript">
     const {ipcRenderer} = require('electron')
 
-    function send(){
-      console.log('sending')
-      ipcRenderer.send('filepath', 'test')
-    }
+    ipcRenderer.on('error', (event, message) => {
+      console.log('error', message)
+      document.getElementById('fileHolder').innerHTML = message.toString();
+    })
+
+    document.addEventListener('drop', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      document.getElementById('fileHolder').innerHTML = 'Opening..';
+      
+      for (let f of e.dataTransfer.files) {
+        console.log('sending', f.path)
+        ipcRenderer.send('filepath', f.path)
+      }
+    });
+    document.addEventListener('dragover', function (e) {
+      document.getElementById('fileHolder').innerHTML = 'Drop To Open';
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    document.addEventListener('dragleave', function (e) {
+      document.getElementById('fileHolder').innerHTML = 'Drag Your File Here';
+      e.preventDefault();
+      e.stopPropagation();
+    });
     </script>
   </head>
   <body>
@@ -19,12 +40,7 @@
           <input id="fileInput" type="file" style="display:none;" />
           <input type="button" value="Open" onclick="document.getElementById('fileInput').click();" />
       </div>
-      <div class="item-b"></div>
-      <div class="item-c"></div>
-      <div class="item-d">
-        <button onclick="send()">Message main thread</button>
-      </div>
-      
+      <div class="item-b" id="fileHolder">Drag Your File Here</div>      
     </div>
   </body>
 </html>

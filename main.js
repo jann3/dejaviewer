@@ -12,28 +12,10 @@ let win
 const filename = 'index.html'
 const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm']
 
-console.log(dialog)
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 300, height: 200})
-
-  win.webContents.on('will-navigate', (event, url) => {
-
-    // Extract file extension if dot
-    let file_extension = url.split('.').pop().toLowerCase()
-
-    // Filter acceptable extensions by the current file extension
-    let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
-
-    // Found acceptable file extension else prevent navigate
-    if(isAcceptable.length){
-      console.log(file_extension, 'accepted!')
-    } else {
-      console.log(file_extension, 'unacceptable!')
-      event.preventDefault()
-    }
-  })
+  win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333'})
 
   // and load the index.html of the app.
   win.loadURL(url.format({
@@ -41,6 +23,14 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
+  win.webContents.on('will-navigate', (event, url) => {
+
+    // Disabled navigation but pass to checkFile
+    event.preventDefault()
+    console.log('receiving url from navigate', url)
+    checkFile(url)
+  })
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -62,10 +52,38 @@ function createWindow () {
   })
 }
 
-// ipcMain receives messages from other windows
-ipcMain.on('filepath', (event, arg) => {
-  console.log('receiving', arg)
+function checkFile(url){
+  // Extract file extension if dot
+  let file_extension = url.split('.').pop().toLowerCase()
+  
+   // Filter acceptable extensions by the current file extension
+  let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
+  
+  // Found acceptable file extension load it, else send error message
+  if(isAcceptable.length){
+    console.log(file_extension, 'accepted!')
+    win.loadURL(url)
+  } else {
+    console.log(file_extension, 'unacceptable!')
+
+    // Send error message to win/icp
+    win.webContents.send('error', 'Image Files Only');
+
+  }
+}
+
+// ipcMain receives filepath from index.html
+ipcMain.on('filepath', (event, url) => {
+  console.log('receiving url from ipc', url)
+  checkFile(url)
 })
+
+// send fileerror message back to index.html
+ipcMain.on('error', (event, message) => {
+  console.log(message)
+  event.sender.send('error', message)
+})
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
