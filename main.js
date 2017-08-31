@@ -63,7 +63,7 @@ function checkFile(url){
   
   // Found acceptable file extension load it, else send error message
   if(isAcceptable.length){
-    console.log(`acceped: ${file_extension}`)
+    console.log(`accepted: ${file_extension}`)
     let fixurl = url
     if(fixurl.toString().startsWith('file:')){
       fixurl = path.normalize(fixurl.toString().substring(8))
