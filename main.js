@@ -32,12 +32,13 @@ function createWindow () {
     slashes: true
   }))
 
-  win.webContents.on('will-navigate', (event, url) => {
+  win.webContents.on('will-navigate', (event, navurl) => {
 
     // Disabled navigation but pass to checkFile
     event.preventDefault()
-    console.log(`receiving url from navigate: ${url}`)
-    checkFile(url)
+    newnavurl = path.normalize(navurl.toString().substring(8))
+    console.log(`fixed url from navigate: ${newnavurl}`)
+    checkFile(navurl)
   })
 
   win.webContents.on('did-finish-load', (event, isMainFrame) => {
@@ -63,7 +64,11 @@ function checkFile(url){
   // Found acceptable file extension load it, else send error message
   if(isAcceptable.length){
     console.log(`acceped: ${file_extension}`)
-    filename = url
+    let fixurl = url
+    if(fixurl.toString().startsWith('file:')){
+      fixurl = path.normalize(fixurl.toString().substring(8))
+    }
+    filename = path.normalize(fixurl)
     win.loadURL(url)
 
     console.log(`filename: ${filename}`)
@@ -84,14 +89,13 @@ function checkFile(url){
 
     // Send error message to win/icp
     win.webContents.send('error', 'Image Files Only');
-
   }
 }
 
 // ipcMain receives filepath from index.html
-ipcMain.on('filepath', (event, url) => {
-  console.log(`receiving url from ipc: ${url}`)
-  checkFile(url)
+ipcMain.on('filepath', (event, ipcurl) => {
+  console.log(`receiving url from ipc: ${ipcurl}`)
+  checkFile(ipcurl)
 })
 
 // send fileerror message back to index.html
