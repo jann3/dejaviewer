@@ -15,7 +15,12 @@ const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'b
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333'})
+  win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false})
+
+  // Hide loading flash
+  win.once('ready-to-show', () => {
+    win.show()
+  })
 
   // and load the index.html of the app.
   win.loadURL(url.format({
