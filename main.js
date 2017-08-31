@@ -36,7 +36,7 @@ function createWindow () {
 
     // Disabled navigation but pass to checkFile
     event.preventDefault()
-    console.log('receiving url from navigate', url)
+    console.log(`receiving url from navigate: ${url}`)
     checkFile(url)
   })
 
@@ -58,15 +58,15 @@ function checkFile(url){
   let file_extension = url.split('.').pop().toLowerCase()
   
    // Filter acceptable extensions by the current file extension
-  let isAcceptable = accepted_file_extensions.filter(ext => ext == file_extension)
+  let isAcceptable = accepted_file_extensions.filter(ext => ext === file_extension)
   
   // Found acceptable file extension load it, else send error message
   if(isAcceptable.length){
-    console.log(file_extension, 'accepted!')
+    console.log(`acceped: ${file_extension}`)
     filename = url
     win.loadURL(url)
 
-    console.log('filename', filename)
+    console.log(`filename: ${filename}`)
 
     // Start watch
     fs.watch(filename, (eventType, filename) => {
@@ -80,7 +80,7 @@ function checkFile(url){
     }) // End watch
     
   } else {
-    console.log(file_extension, 'unacceptable!')
+    console.log(`unacceptable: ${file_extension}`)
 
     // Send error message to win/icp
     win.webContents.send('error', 'Image Files Only');
@@ -90,7 +90,7 @@ function checkFile(url){
 
 // ipcMain receives filepath from index.html
 ipcMain.on('filepath', (event, url) => {
-  console.log('receiving url from ipc', url)
+  console.log(`receiving url from ipc: ${url}`)
   checkFile(url)
 })
 
