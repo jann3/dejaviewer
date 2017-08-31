@@ -7,9 +7,9 @@ const {dialog} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
+let win, filename
 
-const filename = 'index.html'
+const mainpage = 'index.html'
 const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm']
 
 
@@ -22,6 +22,9 @@ function createWindow () {
     win.show()
   })
 
+  if(!filename){
+    filename = mainpage
+  }
   // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: path.join(__dirname, filename),
@@ -37,23 +40,16 @@ function createWindow () {
     checkFile(url)
   })
 
+  win.webContents.on('did-finish-load', (event, isMainFrame) => {
+    //console.log(event)
+  })
+
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null
-  })
-
-  // Start watch
-  fs.watch(filename, (eventType, filename) => {
-    console.log(`event type is: ${eventType}`);
-    if (filename) {
-      console.log(`filename provided: ${filename}`);
-      win.reload()
-    } else {
-      console.log('filename not provided');
-    }
   })
 }
 
@@ -67,7 +63,22 @@ function checkFile(url){
   // Found acceptable file extension load it, else send error message
   if(isAcceptable.length){
     console.log(file_extension, 'accepted!')
+    filename = url
     win.loadURL(url)
+
+    console.log('filename', filename)
+
+    // Start watch
+    fs.watch(filename, (eventType, filename) => {
+      console.log(`event type is: ${eventType}`);
+      if (filename) {
+        console.log(`filename provided: ${filename}`);
+        win.reload()
+      } else {
+        console.log('filename not provided');
+      }
+    }) // End watch
+    
   } else {
     console.log(file_extension, 'unacceptable!')
 
