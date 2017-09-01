@@ -36,7 +36,7 @@ function createWindow () {
 
     // Disabled navigation but pass to checkFile
     event.preventDefault()
-    newnavurl = path.normalize(navurl.toString().substring(8))
+    newnavurl = decodeURI(path.normalize(navurl).toString().substring(6))
     console.log(`fixed url from navigate: ${newnavurl}`)
     checkFile(navurl)
   })
@@ -68,7 +68,7 @@ function checkFile(url){
     if(fixurl.toString().startsWith('file:')){
       fixurl = path.normalize(fixurl.toString().substring(8))
     }
-    filename = path.normalize(fixurl)
+    filename = decodeURI(path.normalize(fixurl))
     win.loadURL(url)
 
     console.log(`filename: ${filename}`)
