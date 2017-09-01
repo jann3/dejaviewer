@@ -12,6 +12,12 @@ let win, filename
 const mainpage = 'index.html'
 const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm']
 
+function fixURL(url){
+  if(url.toString().startsWith('file:')){
+    url = path.normalize(url.toString().substring(8))
+  }
+  return decodeURI(path.normalize(url))
+}
 
 function createWindow () {
   // Create the browser window.
@@ -36,7 +42,7 @@ function createWindow () {
 
     // Disabled navigation but pass to checkFile
     event.preventDefault()
-    newnavurl = decodeURI(path.normalize(navurl).toString().substring(6))
+    newnavurl = fixURL(navurl)
     console.log(`fixed url from navigate: ${newnavurl}`)
     checkFile(navurl)
   })
@@ -64,11 +70,8 @@ function checkFile(url){
   // Found acceptable file extension load it, else send error message
   if(isAcceptable.length){
     console.log(`accepted: ${file_extension}`)
-    let fixurl = url
-    if(fixurl.toString().startsWith('file:')){
-      fixurl = path.normalize(fixurl.toString().substring(8))
-    }
-    filename = decodeURI(path.normalize(fixurl))
+    url = fixURL(url)
+    filename = url
     win.loadURL(url)
 
     console.log(`filename: ${filename}`)
