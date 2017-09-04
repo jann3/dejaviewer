@@ -7,7 +7,7 @@ const {dialog} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win, filename
+let win, globalfilename
 
 const mainpage = 'index.html'
 const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm']
@@ -22,12 +22,12 @@ function createWindow () {
     win.show()
   })
 
-  if(!filename){
-    filename = mainpage
+  if(!globalfilename){
+    globalfilename = mainpage
   }
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, filename),
+    pathname: path.join(__dirname, globalfilename),
     protocol: 'file:',
     slashes: true
   }))
@@ -76,19 +76,20 @@ function checkFile(url){
   if(isAcceptable.length){
     console.log(`accepted: ${file_extension}`)
     url = fixPath(url)
-    filename = url
+
+    globalfilename = url
+    console.log(`globalfilename: ${globalfilename}`)
     win.loadURL(url)
 
-    console.log(`filename: ${filename}`)
-
     // Start watch
-    fs.watch(filename, (eventType, filename) => {
+    fs.watch(globalfilename, (eventType, filename) => {
+
       console.log(`event type is: ${eventType}`);
-      if (filename) {
-        console.log(`filename provided: ${filename}`);
+      if (globalfilename === url) {
+        console.log(`modified file is global: ${filename}`);
         win.reload()
       } else {
-        console.log('filename not provided');
+        console.log('watching old file, close watcher');
       }
     }) // End watch
     
