@@ -82,14 +82,15 @@ function checkFile(url){
     win.loadURL(url)
 
     // Start watch
-    fs.watch(globalfilename, (eventType, filename) => {
+    let watcher = fs.watch(globalfilename, (eventType, filename) => {
 
       console.log(`event type is: ${eventType}`);
       if (globalfilename === url) {
         console.log(`modified file is global: ${filename}`);
         win.reload()
       } else {
-        console.log('watching old file, close watcher');
+        console.log(`closing watcher: ${filename}`);
+        watcher.close()
       }
     }) // End watch
     
