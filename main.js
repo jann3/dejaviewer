@@ -92,9 +92,10 @@ function checkFile(url){
 
     globalfilename = url
 
-    let dimensions = sizeOf(url);
-    console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`);
-
+    sizeOf(url, (err, dimensions) => {
+      console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`);
+      win.setSize(dimensions.width, dimensions.height)
+    })
     console.log(`globalfilename: ${globalfilename}`)
     win.loadURL(url)
 
