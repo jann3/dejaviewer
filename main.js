@@ -43,10 +43,19 @@ function createWindow () {
   })
 
   win.webContents.on('did-finish-load', (event, isMainFrame) => {
+
     //console.log(event)
-    // win.setSize(width, height[, animate])
-    // win.setContentSize(width, height[, animate])
-    console.log(win.getContentSize())
+
+    console.log('loaded')
+    // If fullscreen or maximized dont adjust, 
+    // Else adjust based on filesize
+    if (win.isFullScreen() || win.isMaximized()){
+      console.log('fullscreen')
+    } else {
+      console.log('not fullscreen')
+      console.log(win.getSize())
+      console.log(win.getContentSize())
+    }
   })
 
   // Emitted when the window is closed.
