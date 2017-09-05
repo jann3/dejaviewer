@@ -3,6 +3,7 @@ const path = require('path')
 const url = require('url')
 const fs = require('fs')
 const {dialog} = require('electron')
+const sizeOf = require('image-size')
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -43,6 +44,9 @@ function createWindow () {
 
   win.webContents.on('did-finish-load', (event, isMainFrame) => {
     //console.log(event)
+    // win.setSize(width, height[, animate])
+    // win.setContentSize(width, height[, animate])
+    console.log(win.getContentSize())
   })
 
   // Emitted when the window is closed.
@@ -78,6 +82,10 @@ function checkFile(url){
     url = fixPath(url)
 
     globalfilename = url
+
+    let dimensions = sizeOf(url);
+    console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`);
+
     console.log(`globalfilename: ${globalfilename}`)
     win.loadURL(url)
 
