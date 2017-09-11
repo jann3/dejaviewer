@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript">
     const {ipcRenderer} = require('electron')
+    const {dialog} = require('electron').remote
 
     ipcRenderer.on('error', (event, message) => {
       console.log('error', message)
@@ -18,7 +19,7 @@
       document.getElementById('fileHolder').innerHTML = 'Opening..';
       
       for (let f of e.dataTransfer.files) {
-        console.log('sending', f.path)
+        console.log('sending from drag/drop', f.path)
         ipcRenderer.send('filepath', f.path)
       }
     });
@@ -32,13 +33,36 @@
       e.preventDefault();
       e.stopPropagation();
     });
+
+    function openFile () {
+
+    dialog.showOpenDialog({ filters: [
+
+        { name: 'JPEG', extensions: ['jpg', 'jpeg'] },
+        { name: 'PNG', extensions: ['png'] },
+        { name: 'GIF', extensions: ['gif'] },
+        { name: 'TIFF', extensions: ['tif', 'tiff'] },
+        { name: 'WebP', extensions: ['webp'] },
+        { name: 'All Image Files', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm'] },
+      ]}, (filepaths) => {
+
+        if (filepaths === undefined) {
+          console.log('no file selected')
+          return false
+        } else {
+          let filepath = filepaths[0]
+          console.log('sending from selection', filepath)
+          ipcRenderer.send('filepath', filepath)
+        }
+      }); 
+    }
+
     </script>
   </head>
   <body>
     <div class="container">
       <div class="item-a">
-          <input id="fileInput" type="file" style="display:none;" />
-          <input type="button" value="Open" onclick="document.getElementById('fileInput').click();" />
+          <input type="button" value="Open" onclick="openFile();">
       </div>
       <div class="item-b" id="fileHolder">Drag Your File Here</div>      
     </div>
