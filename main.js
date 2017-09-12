@@ -16,8 +16,12 @@ const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'b
 
 function createWindow () {
 
-  if (process.argv[2]){
-    console.log('args', process.argv[2])
+  if (process.argv.length > 2){
+    console.log('args', process.argv)
+    dialog.showMessageBox({ type: 'info', message: 'args: ' + process.argv }, function () {
+      // Temporary message box, remove this
+    });
+    globalfilename = process.argv[2]
   }
   // Create the browser window.
   win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false})
@@ -27,12 +31,14 @@ function createWindow () {
     win.show()
   })
 
+  let dir = ''
   if(!globalfilename){
     globalfilename = mainpage
-  }
+    dir = __dirname
+  } 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, globalfilename),
+    pathname: path.join(dir, globalfilename),
     protocol: 'file:',
     slashes: true
   }))
