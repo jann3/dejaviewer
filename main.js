@@ -4,6 +4,7 @@ const url = require('url')
 const fs = require('fs')
 const {dialog} = require('electron')
 const sizeOf = require('image-size')
+const {addBypassChecker} = require('electron-compile')
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -13,16 +14,25 @@ let win, globalfilename
 const mainpage = 'index.html'
 const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm']
 
+addBypassChecker((filePath) => {
+  // Bypass authenticity on local files to allow open with CLI
+  return filePath.indexOf(app.getAppPath()) === -1;
+});
 
 function createWindow () {
 
-  if (process.argv.length > 2){
-    console.log('args', process.argv)
-    dialog.showMessageBox({ type: 'info', message: 'args: ' + process.argv }, function () {
-      // Temporary message box, remove this
-    });
-    globalfilename = process.argv[2]
+  if (process.defaultApp && process.argv.length >= 3){
+    // Opened app as param from default with additional params
+    // Set file to open as last param
+    globalfilename = process.argv[process.argv.length-1]
+  }  else if (process.platform == 'win32' && process.argv.length >= 2) {
+    // Opened app as build with params
+    // Set file to open as last param
+    globalfilename = process.argv[process.argv.length-1]
+  } else {
+    // Not a thing
   }
+
   // Create the browser window.
   win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false})
 
