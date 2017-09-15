@@ -6,6 +6,7 @@ A replacement photo/image viewer application build on Chromium using [Electron](
 
 * Single image viewer
 * Automatic reloading of modified files
+* Open images via dialog window, explorer, drag & drop
 
 ## How to run this project
 
@@ -26,8 +27,8 @@ You can then drag an image onto the main window to open it.
 
 ## Future work
 
-* Untrack modified file when opening a new file
-* Open images via dialog
+* Handle multiple files
+* Build production (.exe) for win32
 * Navigate to other images
 * (considering) Adding version control and saving/exporting files
 
