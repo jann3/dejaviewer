@@ -25,7 +25,7 @@ function createWindow () {
     // Opened app as param from default with additional params
     // Set file to open as last param
     globalfilename = process.argv[process.argv.length-1]
-  }  else if (process.platform == 'win32' && process.argv.length >= 2) {
+  } else if (!process.defaultApp && process.platform == 'win32' && process.argv.length >= 2) {
     // Opened app as build with params
     // Set file to open as last param
     globalfilename = process.argv[process.argv.length-1]
