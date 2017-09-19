@@ -34,7 +34,7 @@ function createWindow () {
   }
 
   // Create the browser window.
-  win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false})
+  win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false, titleBarStyle: 'hiddenInset'})
 
   // Hide loading flash
   win.once('ready-to-show', () => {
@@ -156,47 +156,6 @@ function checkFile(url){
     win.webContents.send('error', 'Image Files Only');
   }
 
-  // // Extract file extension if dot
-  // let file_extension = url.split('.').pop().toLowerCase()
-  
-  //  // Filter acceptable extensions by the current file extension
-  // let isAcceptable = accepted_file_extensions.filter(ext => ext === file_extension)
-  
-  // // Found acceptable file extension load it, else send error message
-  // if(isAcceptable.length){
-  //   console.log(`accepted: ${file_extension}`)
-  //   url = fixPath(url)
-
-  //   globalfilename = url
-
-  //   console.log(`globalfilename: ${globalfilename}`)
-  //   win.loadURL(url)
-
-  //   // Set size based on file dimensions
-  //   sizeOf(url, (err, dimensions) => {
-  //     console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`);
-  //     win.setSize(dimensions.width, dimensions.height)
-  //   })
-
-  //   // Start watch
-  //   let watcher = fs.watch(globalfilename, (eventType, filename) => {
-
-  //     console.log(`event type is: ${eventType}`);
-  //     if (globalfilename === url) {
-  //       console.log(`modified file is global: ${filename}`);
-  //       win.reload()
-  //     } else {
-  //       console.log(`closing watcher: ${filename}`);
-  //       watcher.close()
-  //     }
-  //   }) // End watch
-    
-  // } else {
-  //   console.log(`unacceptable: ${file_extension}`)
-
-  //   // Send error message to win/icp
-  //   win.webContents.send('error', 'Image Files Only');
-  // }
 }
 
 // ipcMain receives filepath from index.html
