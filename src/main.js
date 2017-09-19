@@ -34,7 +34,7 @@ function createWindow () {
   }
 
   // Create the browser window.
-  win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false, titleBarStyle: 'hiddenInset'})
+  win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false })
 
   // Hide loading flash
   win.once('ready-to-show', () => {
@@ -64,14 +64,13 @@ function createWindow () {
 
   win.webContents.on('did-finish-load', (event, isMainFrame) => {
 
-    //console.log(event)
-
     console.log('loaded')
-    // If fullscreen or maximized dont adjust, 
-    // Else adjust based on filesize
+    
     if (win.isFullScreen() || win.isMaximized()){
+      // If fullscreen or maximized dont adjust
       console.log('fullscreen')
     } else {
+      // Else adjust based on filesize
       console.log('not fullscreen')
       console.log(win.getSize())
       console.log(win.getContentSize())
@@ -100,35 +99,44 @@ function fixPath(url){
 
 function isAcceptableExt(filename){
 
-  if (filename===undefined){
-    return false
-  }
+  // No filename, return false
+  if (filename === undefined) return false
+  
   // Extract file extension if dot
   let file_extension = filename.split('.').pop().toLowerCase()
   
    // Filter acceptable extensions by the current file extension
   let isAcceptable = accepted_file_extensions.filter(ext => ext === file_extension)
   
-  // Found acceptable file extension load it, else send error message
-  if(isAcceptable.length){
-    console.log(`accepted: ${file_extension}`)
-    return true
-    
-  } else {
+  // Return false if unacceptable, true if acceptable
+  if(!isAcceptable.length){
     console.log(`unacceptable: ${file_extension}`)
     return false
+  } else {
+    console.log(`accepted: ${file_extension}`)
+    return true
   }
 }
 
 function checkFile(url){
 
-  if(isAcceptableExt(url)){
-    // Found acceptable file extension load it, else send error message
+  // No file url, return false
+  if (url === undefined) return false
+
+  if(!isAcceptableExt(url)) {
+
+    // If unacceptable send error to client
+    win.webContents.send('error', 'Image Files Only');
+  } else {
+
+    // Found acceptable file extension, fix the path
     url = fixPath(url)
 
+    // Set url to global
     globalfilename = url
-
     console.log(`globalfilename: ${globalfilename}`)
+
+    // Load url
     win.loadURL(url)
 
     // Set size based on file dimensions
@@ -140,32 +148,27 @@ function checkFile(url){
     // Start watch
     let watcher = fs.watch(globalfilename, (eventType, filename) => {
 
-      console.log(`event type is: ${eventType}`);
       if (globalfilename === url) {
+        // If modified file is global reload
         console.log(`modified file is global: ${filename}`);
         win.reload()
       } else {
+        // Else close the watcher
         console.log(`closing watcher: ${filename}`);
         watcher.close()
       }
     }) // End watch
-    
-  } else {
-
-    // Send error message to win/icp
-    win.webContents.send('error', 'Image Files Only');
-  }
-
+  } // End acceptable
 }
 
-// ipcMain receives filepath from index.html
 ipcMain.on('filepath', (event, ipcurl) => {
+  // ipcMain receives filepath from index.html
   console.log(`receiving url from ipc: ${ipcurl}`)
   checkFile(ipcurl)
 })
 
-// send fileerror message back to index.html
 ipcMain.on('error', (event, message) => {
+  // passes error message back to index.html
   console.log(message)
   event.sender.send('error', message)
 })
