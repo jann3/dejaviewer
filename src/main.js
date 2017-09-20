@@ -1,3 +1,5 @@
+"use strict"
+
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
@@ -21,6 +23,7 @@ addBypassChecker((filePath) => {
 
 function createWindow () {
 
+  // Check CLI params
   if (process.defaultApp && process.argv.length >= 3){
     // Opened app as param from default with additional params
     // Set file to open as last param
@@ -33,6 +36,13 @@ function createWindow () {
     // Not a thing
   }
 
+  let dir = ''
+  if(!globalfilename || !isAcceptableExt(globalfilename)){
+    // If no global or unacceptable file set it to the default page
+    globalfilename = mainpage
+    dir = __dirname
+  }
+
   // Create the browser window.
   win = new BrowserWindow({width: 300, height: 200, backgroundColor: '#333', show: false })
 
@@ -41,11 +51,6 @@ function createWindow () {
     win.show()
   })
 
-  let dir = ''
-  if(!globalfilename || !isAcceptableExt(globalfilename)){
-    globalfilename = mainpage
-    dir = __dirname
-  } 
   // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: path.join(dir, globalfilename),
@@ -66,14 +71,21 @@ function createWindow () {
 
     console.log('loaded')
     
-    if (win.isFullScreen() || win.isMaximized()){
-      // If fullscreen or maximized dont adjust
-      console.log('fullscreen')
+    if (win.isFullScreen() || win.isMaximized() || globalfilename == mainpage){
+      // If fullscreen, maximized or mainpage dont adjust size
+      console.log('no size adjust')
     } else {
       // Else adjust based on filesize
-      console.log('not fullscreen')
+      console.log('adjusted size')
       console.log(win.getSize())
       console.log(win.getContentSize())
+
+      // Set size based on file dimensions
+      sizeOf(globalfilename, (err, dimensions) => {
+        console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`);
+        win.setContentSize(dimensions.width, dimensions.height)
+      })
+
     }
   })
 
@@ -87,6 +99,7 @@ function createWindow () {
 }
 
 function fixPath(url){
+
   // Normalize path. Forward slashes become backslashes
   url = path.normalize(url)
   // Strip file from path
@@ -138,12 +151,6 @@ function checkFile(url){
 
     // Load url
     win.loadURL(url)
-
-    // Set size based on file dimensions
-    sizeOf(url, (err, dimensions) => {
-      console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`);
-      win.setSize(dimensions.width, dimensions.height)
-    })
 
     // Start watch
     let watcher = fs.watch(globalfilename, (eventType, filename) => {
