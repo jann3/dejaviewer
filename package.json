@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "electron-compile": "^6.4.1",
-    "image-size": "^0.6.1"
+    "image-size": "^0.6.1",
+    "util.promisify": "^1.0.0"
   },
   "config": {
     "forge": {

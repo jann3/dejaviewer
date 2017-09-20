@@ -5,7 +5,8 @@ const path = require('path')
 const url = require('url')
 const fs = require('fs')
 const {dialog} = require('electron')
-const sizeOf = require('image-size')
+const promisify = require('util.promisify')
+const sizeOf = promisify(require('image-size'))
 const {addBypassChecker} = require('electron-compile')
 
 
@@ -81,11 +82,12 @@ function createWindow () {
       console.log(win.getContentSize())
 
       // Set size based on file dimensions
-      sizeOf(globalfilename, (err, dimensions) => {
-        console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`);
+      sizeOf(globalfilename)
+      .then(dimensions => {
+        console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`)
         win.setContentSize(dimensions.width, dimensions.height)
       })
-
+      .catch(err => console.error(err))
     }
   })
 
