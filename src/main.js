@@ -1,10 +1,10 @@
 "use strict"
 
-const {app, BrowserWindow, ipcMain} = require('electron')
+const electron = require('electron')
+const {app, BrowserWindow, dialog, ipcMain} = electron
 const path = require('path')
 const url = require('url')
 const fs = require('fs')
-const {dialog} = require('electron')
 const promisify = require('util.promisify')
 const sizeOf = promisify(require('image-size'))
 const {addBypassChecker} = require('electron-compile')
@@ -78,14 +78,43 @@ function createWindow () {
     } else {
       // Else adjust based on filesize
       console.log('adjusted size')
-      console.log(win.getSize())
-      console.log(win.getContentSize())
+
+      // Get current size, currently unused
+      let current = {}
+      current.width = win.getContentSize()[0] // Current window width
+      current.height =  win.getContentSize()[1] // Current window height
+
+      // Get display dimensions
+      let display = {}
+      display = electron.screen.getPrimaryDisplay().workAreaSize // primary display workArea (returns width and height)
+      display.aspectRatio = display.width / display.height // User width and height to calc aspectRatio
+
+      console.log(`available width: ${display.width}, height: ${display.height}, aspectRatio: ${display.aspectRatio}`)
 
       // Set size based on file dimensions
       sizeOf(globalfilename)
       .then(dimensions => {
-        console.log(`image width: ${dimensions.width}, height: ${dimensions.height}`)
-        win.setContentSize(dimensions.width, dimensions.height)
+          dimensions.aspectRatio = dimensions.width / dimensions.height
+          console.log(`image width: ${dimensions.width}, height: ${dimensions.height}, aspectRatio: ${dimensions.aspectRatio}`)
+          
+          if (display.width >= dimensions.width && display.height >= dimensions.height){
+            // File fits on screen area so set dimensions accordingly
+            console.log('file fits available work space')
+
+            win.setContentSize(dimensions.width, dimensions.height)
+          } else if (display.aspectRatio > dimensions.aspectRatio){
+            // File exceeds dimensions with wider screen
+            console.log('file exceeds workspace, with wider screen')
+            
+            let widthByRatio = Math.round(display.height * dimensions.aspectRatio)
+            win.setContentSize(widthByRatio, display.height)
+          } else {
+            // File exceeds dimensions with taller screen
+            console.log('file exceeds workspace, with taller screen')
+
+            let heightByRatio = Math.round(display.width / dimensions.aspectRatio)
+            win.setContentSize(display.width, heightByRatio)
+          }
       })
       .catch(err => console.error(err))
     }
