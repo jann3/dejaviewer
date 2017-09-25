@@ -9,6 +9,8 @@ const promisify = require('util.promisify')
 const sizeOf = promisify(require('image-size'))
 const {addBypassChecker} = require('electron-compile')
 
+const exec = promisify(require('child_process').exec)
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -19,10 +21,18 @@ const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'b
 
 addBypassChecker((filePath) => {
   // Bypass authenticity on local files to allow open with CLI
-  return filePath.indexOf(app.getAppPath()) === -1;
-});
+  return filePath.indexOf(app.getAppPath()) === -1
+})
 
 function createWindow () {
+
+  // Git status - temporary exec
+  exec('git status')
+  .then((stdout, stderr) => {
+    if(stdout) console.log('stdout: ', stdout)
+    if(stderr) console.log('stderr: ', stderr)
+  })
+  .catch(err => console.error(err))
 
   // Check CLI params
   if (process.defaultApp && process.argv.length >= 3){
