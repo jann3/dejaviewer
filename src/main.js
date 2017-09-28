@@ -191,7 +191,7 @@ function checkFile(url){
     console.log(`globalfilename: ${globalfilename}`)
 
     // Load url
-    win.loadURL(url)
+    win.loadURL(globalfilename)
 
     // Start watch
     let watcher = fs.watch(globalfilename, (eventType, filename) => {
