@@ -7,10 +7,8 @@ const url = require('url')
 const fs = require('fs')
 const promisify = require('util.promisify')
 const sizeOf = promisify(require('image-size'))
-const {addBypassChecker} = require('electron-compile')
-
 const exec = promisify(require('child_process').exec)
-
+const {addBypassChecker} = require('electron-compile')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -99,13 +97,19 @@ function createWindow () {
       display = electron.screen.getPrimaryDisplay().workAreaSize // primary display workArea (returns width and height)
       display.aspectRatio = display.width / display.height // User width and height to calc aspectRatio
 
-      console.log(`available width: ${display.width}, height: ${display.height}, aspectRatio: ${display.aspectRatio}`)
+      console.log(  `available workArea
+                                width: ${display.width}, 
+                                height: ${display.height}, 
+                                aspectRatio: ${display.aspectRatio}`)
 
       // Set size based on file dimensions
       sizeOf(globalfilename)
       .then(dimensions => {
           dimensions.aspectRatio = dimensions.width / dimensions.height
-          console.log(`image width: ${dimensions.width}, height: ${dimensions.height}, aspectRatio: ${dimensions.aspectRatio}`)
+          console.log(  `file dimensions
+                                width: ${dimensions.width},
+                                height: ${dimensions.height},
+                                aspectRatio: ${dimensions.aspectRatio}`)
           
           if (display.width >= dimensions.width && display.height >= dimensions.height){
             // File fits on screen area so set dimensions accordingly
