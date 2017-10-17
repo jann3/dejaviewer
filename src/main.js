@@ -93,8 +93,17 @@ function createWindow () {
       current.height =  win.getContentSize()[1] // Current window height
 
       // Get display dimensions
-      let display = {}
-      display = electron.screen.getDisplayNearestPoint(electron.screen.getCursorScreenPoint()).workAreaSize // display workArea nearest to cursor (returns width and height)
+      let display, winPos = {}
+
+      // Create window position object
+      winPos.x = win.getPosition()[0]
+      winPos.y = win.getPosition()[1]
+
+      // Print position and cursor for comparison
+      console.log('winPos: ', winPos)
+      console.log('screen get cursor: ', electron.screen.getCursorScreenPoint())
+
+      display = electron.screen.getDisplayNearestPoint(winPos).workAreaSize // display workArea nearest window (returns width and height)
       display.aspectRatio = display.width / display.height // User width and height to calc aspectRatio
 
       console.log(  `available workArea
