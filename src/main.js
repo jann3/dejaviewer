@@ -12,7 +12,7 @@ const {addBypassChecker} = require('electron-compile')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win, globalfilename
+let win, globalfilename, changeEvent
 
 const mainpage = 'index.html'
 const accepted_file_extensions = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm']
@@ -80,8 +80,8 @@ function createWindow () {
 
     console.log('loaded')
     
-    if (win.isFullScreen() || win.isMaximized() || globalfilename == mainpage){
-      // If fullscreen, maximized or mainpage dont adjust size
+    if (win.isFullScreen() || win.isMaximized() || globalfilename == mainpage || changeEvent == true){
+      // If fullscreen, maximized, is mainpage, or is a changeEvent dont adjust size
       console.log('no size adjust')
     } else {
       // Else adjust based on filesize
@@ -184,7 +184,7 @@ function checkFile(url){
   if(!isAcceptableExt(url)) {
 
     // If unacceptable send error to client
-    win.webContents.send('error', 'Image Files Only');
+    win.webContents.send('error', 'Image Files Only')
   } else {
 
     // Found acceptable file extension, fix the path
@@ -194,6 +194,9 @@ function checkFile(url){
     globalfilename = url
     console.log(`globalfilename: ${globalfilename}`)
 
+    // Set changeEvent
+    changeEvent = false
+
     // Load url
     win.loadURL(globalfilename)
 
@@ -202,11 +205,20 @@ function checkFile(url){
 
       if (globalfilename === url) {
         // If modified file is global reload
-        console.log(`modified file is global: ${filename}`);
+        console.log(`modified file is global: ${filename}`)
+
+        // Set changeEvent status
+        if (eventType === 'change') {
+          changeEvent = true
+        } else {
+          changeEvent = false
+        }
+
+        // Then reload
         win.reload()
       } else {
         // Else close the watcher
-        console.log(`closing watcher: ${filename}`);
+        console.log(`closing watcher: ${filename}`)
         watcher.close()
       }
     }) // End watch
