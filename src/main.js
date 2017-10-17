@@ -94,7 +94,7 @@ function createWindow () {
 
       // Get display dimensions
       let display = {}
-      display = electron.screen.getPrimaryDisplay().workAreaSize // primary display workArea (returns width and height)
+      display = electron.screen.getDisplayNearestPoint(electron.screen.getCursorScreenPoint()).workAreaSize // display workArea nearest to cursor (returns width and height)
       display.aspectRatio = display.width / display.height // User width and height to calc aspectRatio
 
       console.log(  `available workArea
