@@ -106,19 +106,19 @@ function createWindow () {
       display = electron.screen.getDisplayNearestPoint(winPos).workAreaSize // display workArea nearest window (returns width and height)
       display.aspectRatio = display.width / display.height // User width and height to calc aspectRatio
 
-      console.log(  `available workArea
-                                width: ${display.width}, 
-                                height: ${display.height}, 
-                                aspectRatio: ${display.aspectRatio}`)
+      console.log(  `available workArea\n` +
+                    `   width: ${display.width}\n`+
+                    `   height: ${display.height}\n`+
+                    `   aspectRatio: ${display.aspectRatio}`)
 
       // Set size based on file dimensions
       sizeOf(globalfilename)
       .then(dimensions => {
           dimensions.aspectRatio = dimensions.width / dimensions.height
-          console.log(  `file dimensions
-                                width: ${dimensions.width},
-                                height: ${dimensions.height},
-                                aspectRatio: ${dimensions.aspectRatio}`)
+          console.log(  `file dimensions\n` +
+                        `   width: ${dimensions.width}\n`+
+                        `   height: ${dimensions.height}\n`+
+                        `   aspectRatio: ${dimensions.aspectRatio}`)
           
           if (display.width >= dimensions.width && display.height >= dimensions.height){
             // File fits on screen area so set dimensions accordingly

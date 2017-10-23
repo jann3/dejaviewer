@@ -10,29 +10,31 @@
 
     ipcRenderer.on('error', (event, message) => {
       console.log('error', message)
-      document.getElementById('fileHolder').innerHTML = message.toString();
+      document.getElementById('fileHolder').innerHTML = message.toString()
     })
 
-    document.addEventListener('drop', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      document.getElementById('fileHolder').innerHTML = 'Opening..';
+    document.addEventListener('drop', function (event) {
+      event.preventDefault()
+      event.stopPropagation()
+      document.getElementById('fileHolder').innerHTML = 'Opening..'
       
-      for (let f of e.dataTransfer.files) {
-        console.log('sending from drag/drop', f.path)
-        ipcRenderer.send('filepath', f.path)
+      for (let file of event.dataTransfer.files) {
+        console.log('sending from drag/drop', file.path)
+        ipcRenderer.send('filepath', file.path)
       }
-    });
-    document.addEventListener('dragover', function (e) {
-      document.getElementById('fileHolder').innerHTML = 'Drop To Open';
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    document.addEventListener('dragleave', function (e) {
-      document.getElementById('fileHolder').innerHTML = 'Drag Your File Here';
-      e.preventDefault();
-      e.stopPropagation();
-    });
+    })
+
+    document.addEventListener('dragover', function (event) {
+      document.getElementById('fileHolder').innerHTML = 'Drop To Open'
+      event.preventDefault()
+      event.stopPropagation()
+    })
+
+    document.addEventListener('dragleave', function (event) {
+      document.getElementById('fileHolder').innerHTML = 'Drag Your File Here'
+      event.preventDefault()
+      event.stopPropagation()
+    })
 
     function openFile () {
 
@@ -54,7 +56,7 @@
           console.log('sending from selection', filepath)
           ipcRenderer.send('filepath', filepath)
         }
-      }); 
+      })
     }
 
     </script>
