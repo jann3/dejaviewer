@@ -16,10 +16,11 @@ This project requires [Electron](https://electron.atom.io/) to be installed.
 npm install -g electron 
 ```
 
-Then [download DejaViewer](https://github.com/Jann3/DejaViewer/archive/master.zip), extract and run 'npm start':
+Then [download DejaViewer](https://github.com/Jann3/DejaViewer/archive/master.zip) or clone the project, then extract and run the following npm commands:
 
 ```
-cd DejaViewer-master
+cd DejaViewer
+npm install
 npm start
 ```
 
