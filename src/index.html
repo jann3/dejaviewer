@@ -1,72 +1,95 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>DejaViewer</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <script type="text/javascript">
-    const {ipcRenderer} = require('electron')
-    const {dialog} = require('electron').remote
+      const { ipcRenderer } = require("electron");
+      const { dialog } = require("electron").remote;
 
-    ipcRenderer.on('error', (event, message) => {
-      console.log('error', message)
-      document.getElementById('fileHolder').innerHTML = message.toString()
-    })
+      ipcRenderer.on("error", (event, message) => {
+        console.log("error", message);
+        document.getElementById("fileHolder").innerHTML = message.toString();
+      });
 
-    document.addEventListener('drop', function (event) {
-      event.preventDefault()
-      event.stopPropagation()
-      document.getElementById('fileHolder').innerHTML = 'Opening..'
-      
-      for (let file of event.dataTransfer.files) {
-        console.log('sending from drag/drop', file.path)
-        ipcRenderer.send('filepath', file.path)
-      }
-    })
+      document.addEventListener("drop", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        document.getElementById("fileHolder").innerHTML = "Opening..";
 
-    document.addEventListener('dragover', function (event) {
-      document.getElementById('fileHolder').innerHTML = 'Drop To Open'
-      event.preventDefault()
-      event.stopPropagation()
-    })
-
-    document.addEventListener('dragleave', function (event) {
-      document.getElementById('fileHolder').innerHTML = 'Drag Your File Here'
-      event.preventDefault()
-      event.stopPropagation()
-    })
-
-    function openFile () {
-
-    dialog.showOpenDialog({ filters: [
-
-        { name: 'JPEG', extensions: ['jpg', 'jpeg'] },
-        { name: 'PNG', extensions: ['png'] },
-        { name: 'GIF', extensions: ['gif'] },
-        { name: 'TIFF', extensions: ['tif', 'tiff'] },
-        { name: 'WebP', extensions: ['webp'] },
-        { name: 'All Image Files', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'ico', 'bmp', 'jfif', 'pjpeg', 'pjp', 'svg', 'svgz', 'tiff', 'tif', 'xbm'] },
-      ]}, (filepaths) => {
-
-        if (filepaths === undefined) {
-          console.log('no file selected')
-          return false
-        } else {
-          let filepath = filepaths[0]
-          console.log('sending from selection', filepath)
-          ipcRenderer.send('filepath', filepath)
+        for (let file of event.dataTransfer.files) {
+          console.log("sending from drag/drop", file.path);
+          ipcRenderer.send("filepath", file.path);
         }
-      })
-    }
+      });
 
+      document.addEventListener("dragover", function (event) {
+        document.getElementById("fileHolder").innerHTML = "Drop To Open";
+        event.preventDefault();
+        event.stopPropagation();
+      });
+
+      document.addEventListener("dragleave", function (event) {
+        document.getElementById("fileHolder").innerHTML = "Drag Your File Here";
+        event.preventDefault();
+        event.stopPropagation();
+      });
+
+      function openFile() {
+        dialog.showOpenDialog(
+          {
+            filters: [
+              { name: "JPEG", extensions: ["jpg", "jpeg"] },
+              { name: "PNG", extensions: ["png"] },
+              { name: "GIF", extensions: ["gif"] },
+              { name: "TIFF", extensions: ["tif", "tiff"] },
+              { name: "WebP", extensions: ["webp"] },
+              { name: "AVIF", extensions: ["avif"] },
+              {
+                name: "All Image Files",
+                extensions: [
+                  "jpg",
+                  "jpeg",
+                  "png",
+                  "gif",
+                  "webp",
+                  "ico",
+                  "bmp",
+                  "jfif",
+                  "pjpeg",
+                  "pjp",
+                  "svg",
+                  "svgz",
+                  "tiff",
+                  "tif",
+                  "webp",
+                  "avif",
+                  "xbm",
+                ],
+              },
+            ],
+          },
+          (filepaths) => {
+            if (filepaths === undefined) {
+              console.log("no file selected");
+              return false;
+            } else {
+              let filepath = filepaths[0];
+              console.log("sending from selection", filepath);
+              ipcRenderer.send("filepath", filepath);
+            }
+          }
+        );
+      }
     </script>
   </head>
   <body>
     <div class="container">
       <div class="item-a">
-          <input type="button" value="Open" onclick="openFile();">
+        <input type="button" value="Open" onclick="openFile();" />
       </div>
-      <div class="item-b" id="fileHolder">Drag Your File Here</div>      
+      <div class="item-b" id="fileHolder">Drag Your File Here</div>
     </div>
   </body>
 </html>
