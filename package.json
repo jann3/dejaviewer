@@ -20,16 +20,16 @@
   "license": "MIT",
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "electron": "^1.7.8",
-    "electron-forge": "^4.3.0",
-    "electron-prebuilt-compile": "1.7.6"
+    "electron": "^10.1.1",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0"
   },
   "dependencies": {
-    "electron-compile": "^6.4.1",
-    "image-size": "^0.6.1",
-    "util.promisify": "1.0.0"
+    "electron-compile": "^6.4.4",
+    "image-size": "^0.9.1",
+    "util.promisify": "1.0.1"
   },
   "config": {
     "forge": {
