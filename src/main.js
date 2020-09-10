@@ -10,6 +10,8 @@ const sizeOf = promisify(require("image-size"));
 const exec = promisify(require("child_process").exec);
 const { addBypassChecker } = require("electron-compile");
 
+app.name = "test";
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win, globalfilename, changeEvent;
@@ -40,13 +42,13 @@ addBypassChecker((filePath) => {
 });
 
 function createWindow() {
-  // Git status - temporary exec
-  exec("git status")
-    .then((stdout, stderr) => {
-      if (stdout) console.log("stdout: ", stdout);
-      if (stderr) console.log("stderr: ", stderr);
-    })
-    .catch((err) => console.error(err));
+  // // Git status - temporary exec
+  // exec("git status")
+  //   .then((stdout, stderr) => {
+  //     if (stdout) console.log("stdout: ", stdout);
+  //     if (stderr) console.log("stderr: ", stderr);
+  //   })
+  //   .catch((err) => console.error(err));
 
   // Check CLI params
   if (process.defaultApp && process.argv.length >= 3) {
@@ -290,7 +292,10 @@ ipcMain.on("error", (event, message) => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", () => {
+  app.allowRendererProcessReuse = true;
+  createWindow();
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
