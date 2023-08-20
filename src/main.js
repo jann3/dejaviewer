@@ -1,5 +1,3 @@
-"use strict";
-
 const electron = require("electron");
 const { app, BrowserWindow, dialog, ipcMain } = electron;
 const path = require("path");
@@ -80,6 +78,11 @@ function createWindow() {
     height: 200,
     backgroundColor: "#333",
     show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+    }
   });
 
   // Hide loading flash
@@ -144,9 +147,9 @@ function createWindow() {
 
       console.log(
         `available workArea\n` +
-          `   width: ${display.width}\n` +
-          `   height: ${display.height}\n` +
-          `   aspectRatio: ${display.aspectRatio}`
+        `   width: ${display.width}\n` +
+        `   height: ${display.height}\n` +
+        `   aspectRatio: ${display.aspectRatio}`
       );
 
       // Set size based on file dimensions
@@ -155,9 +158,9 @@ function createWindow() {
           dimensions.aspectRatio = dimensions.width / dimensions.height;
           console.log(
             `file dimensions\n` +
-              `   width: ${dimensions.width}\n` +
-              `   height: ${dimensions.height}\n` +
-              `   aspectRatio: ${dimensions.aspectRatio}`
+            `   width: ${dimensions.width}\n` +
+            `   height: ${dimensions.height}\n` +
+            `   aspectRatio: ${dimensions.aspectRatio}`
           );
 
           if (
@@ -187,7 +190,7 @@ function createWindow() {
           }
         })
         .catch((err) => console.error(err));
-    }
+    } // end size adjust
   });
 
   // Emitted when the window is closed.
