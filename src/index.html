@@ -17,9 +17,9 @@
     });
 
     document.addEventListener("drop", function (event) {
+      // add drop indicator
       event.preventDefault();
       event.stopPropagation();
-      document.getElementById("fileHolder").innerHTML = "Opening..";
 
       for (let file of event.dataTransfer.files) {
         console.log("sending from drag/drop", file.path);
@@ -28,13 +28,13 @@
     });
 
     document.addEventListener("dragover", function (event) {
-      document.getElementById("fileHolder").innerHTML = "Drop To Open";
+      // add dragover indicator
       event.preventDefault();
       event.stopPropagation();
     });
 
     document.addEventListener("dragleave", function (event) {
-      document.getElementById("fileHolder").innerHTML = "Drag Your File Here";
+      // remove dragover indicator
       event.preventDefault();
       event.stopPropagation();
     });
