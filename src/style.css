@@ -1,52 +1,91 @@
 body {
-  background-color: #333;
-  color: #eee;
-  padding: 0px;
-  margin: 0px;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
 }
 
-.container {
-  width: 100vw;
-  height: 100vh;
+main {
   display: grid;
-  grid-template: 1fr 2fr / 1fr 2fr;
-  justify-content: stretch;
-  background-color: #333;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
+  width: 100vw;
 }
 
-.item-a {
-  grid-column: 1 / 3;
-  grid-row: 1 / 2;
-}
-.item-b {
-  grid-column: 1 / 3;
-  grid-row: 2 / 3;
-}
-
-button, input[type='button'] {
-  width: 100%;
-  height: 100%;
+aside {
+  padding: 20px;
+  text-align: center;
+  text-justify: center;
+  display: flex;
+  align-items: center;
+  background-color: #464566;
 }
 
-@media screen and (min-width: 400px) {
-  .item-a {
-    grid-column: 1 / 2;
-    grid-row: 1 / 3;
+svg {
+  margin: auto auto;
+  max-width: 350px;
+}
+
+ol {
+  justify-content: center;
+  align-content: center;
+  padding: 1rem 4rem 1rem 4rem;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  font-family: Blinker, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  align-items: start;
+  gap: 2.4rem;
+}
+
+li::marker,
+h1 {
+  color: #dadada;
+  font-size: 2.4rem;
+  font-family: Chiller, Copperplate, Papyrus, "Courier New", Courier, monospace;
+}
+
+li {
+  max-width: 21rem;
+}
+
+li div {
+  padding-top: 1rem;
+}
+
+input[type=button] {
+  cursor: pointer;
+  background-color: #D81E5B;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.4rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 3px solid #fff;
+  box-shadow: 5px 5px 0px 0px #D81E5B;
+  transition: all .1s ease-out;
+}
+
+input[type=button]:hover {
+  background-color: #e83772;
+}
+
+input[type=button]:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0px 0px #650428;
+}
+
+@media screen and (orientation:portrait) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
-  .item-b {
-    grid-column: 2 / 3;
-    grid-row: 1 / 3;
-  }
-}
 
-@media screen and (orientation:portrait){
-  .item-b {
-    background-color: #633
+  ol {
+    flex-direction: row;
   }
-}
 
-@media screen and (orientation:landscape){
-  .item-b {
-    background-color: #363
+  span:first-child {
+    display: inline-flex;
+    flex-direction: column-reverse;
   }
 }
