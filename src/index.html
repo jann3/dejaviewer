@@ -72,18 +72,8 @@
               ],
             },
           ],
-        },
-        (filepaths) => {
-          if (filepaths === undefined) {
-            console.log("no file selected");
-            return false;
-          } else {
-            let filepath = filepaths[0];
-            console.log("sending from selection", filepath);
-            ipcRenderer.send("filepath", filepath);
-          }
         }
-      );
+      ).then(result => ipcRenderer.send("filepath", result.filePaths[0]));
     }
   </script>
 </head>
