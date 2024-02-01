@@ -21,7 +21,7 @@ Then [download DejaViewer](https://github.com/Jann3/DejaViewer/archive/master.zi
 ```
 cd DejaViewer
 npm install
-npm start
+electron .
 ```
 
 You can then drag an image onto the main window to open it.
