@@ -89,3 +89,27 @@ input[type=button]:active {
     flex-direction: column-reverse;
   }
 }
+
+/* svg logo styling */
+
+.cls-1 {
+  font-size: 77.74px;
+  font-family: Chiller-Regular, Chiller;
+}
+
+.cls-1,
+.cls-2,
+.cls-3,
+.cls-4 {
+  fill: #fff;
+}
+
+.cls-2 {
+  font-size: 77.57px;
+  font-family: Blinker-Bold, Blinker;
+  font-weight: 700;
+}
+
+.cls-3 {
+  opacity: 0.15;
+}
