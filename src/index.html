@@ -9,7 +9,6 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script type="text/javascript">
     const { ipcRenderer } = require("electron");
-    const { dialog } = require("electron").remote;
 
     ipcRenderer.on("error", (event, message) => {
       console.log("error", message);
@@ -40,40 +39,48 @@
     });
 
     function openFile() {
-      dialog.showOpenDialog(
-        {
-          filters: [
-            { name: "JPEG", extensions: ["jpg", "jpeg"] },
-            { name: "PNG", extensions: ["png"] },
-            { name: "GIF", extensions: ["gif"] },
-            { name: "TIFF", extensions: ["tif", "tiff"] },
-            { name: "WebP", extensions: ["webp"] },
-            { name: "AVIF", extensions: ["avif"] },
-            {
-              name: "All Image Files",
-              extensions: [
-                "jpg",
-                "jpeg",
-                "png",
-                "gif",
-                "webp",
-                "ico",
-                "bmp",
-                "jfif",
-                "pjpeg",
-                "pjp",
-                "svg",
-                "svgz",
-                "tiff",
-                "tif",
-                "webp",
-                "avif",
-                "xbm",
-              ],
-            },
-          ],
-        }
-      ).then(result => ipcRenderer.send("filepath", result.filePaths[0]));
+
+      //   dialog.showOpenDialog(dialog.getCurrentWindow(),
+      //     {
+      //       filters: [
+      //         { name: "JPEG", extensions: ["jpg", "jpeg"] },
+      //         { name: "PNG", extensions: ["png"] },
+      //         { name: "GIF", extensions: ["gif"] },
+      //         { name: "TIFF", extensions: ["tif", "tiff"] },
+      //         { name: "WebP", extensions: ["webp"] },
+      //         { name: "AVIF", extensions: ["avif"] },
+      //         {
+      //           name: "All Image Files",
+      //           extensions: [
+      //             "jpg",
+      //             "jpeg",
+      //             "png",
+      //             "gif",
+      //             "webp",
+      //             "ico",
+      //             "bmp",
+      //             "jfif",
+      //             "pjpeg",
+      //             "pjp",
+      //             "svg",
+      //             "svgz",
+      //             "tiff",
+      //             "tif",
+      //             "webp",
+      //             "avif",
+      //             "xbm",
+      //           ],
+      //         },
+      //       ],
+      //     })
+      //     .then(result => {
+      //       ipcRenderer.send("filepath", result.filePaths[0])
+      //     })
+      //     .catch(err => {
+      //       console.log(err)
+      //     });
+
+
     }
   </script>
 </head>

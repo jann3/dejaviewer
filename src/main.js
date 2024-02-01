@@ -1,9 +1,8 @@
 const electron = require("electron");
-const { app, BrowserWindow, dialog, ipcMain } = electron;
+const { app, BrowserWindow, ipcMain, dialog } = electron;
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
-// const promisify = require("util.promisify");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
 // const exec = promisify(require("child_process").exec);
