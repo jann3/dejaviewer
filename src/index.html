@@ -8,14 +8,9 @@
   <link href="https://fonts.cdnfonts.com/css/chiller" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script type="text/javascript">
-    // const { ipcRenderer } = require("electron");
 
-    // ipcRenderer.on("error", (event, message) => {
-    //   console.log("error", message);
-    // document.getElementById("fileHolder").innerHTML = message.toString();
-    // });
-    deja.receive("response", (data) => {
-      console.log(`response from main: ${data}`);
+    deja.receive("response", (message) => {
+      console.log(`response from main: ${message}`);
     });
 
     document.addEventListener("drop", function (event) {
@@ -26,7 +21,6 @@
       for (let file of event.dataTransfer.files) {
         console.log("sending from drag/drop", file.path);
         window.deja.send("filepath", file.path)
-        // ipcRenderer.send("filepath", file.path);
       }
     });
 
@@ -43,7 +37,6 @@
     });
 
     function openFile() {
-
       const dialogConfig = {
         title: 'Select a file',
         buttonLabel: 'Open',
@@ -78,55 +71,7 @@
             ],
           },],
       };
-
-      deja.openDialog("showOpenDialog", dialogConfig)
-      // .then(result => {
-      //   console.log("never called? ", result)
-      //   // ipcRenderer.send("filepath", result.filePaths[0]);
-      //   window.deja.send("filepath", result.filePaths[0])
-      // });
-
-      //   dialog.showOpenDialog(dialog.getCurrentWindow(),
-      //     {
-      //       filters: [
-      //         { name: "JPEG", extensions: ["jpg", "jpeg"] },
-      //         { name: "PNG", extensions: ["png"] },
-      //         { name: "GIF", extensions: ["gif"] },
-      //         { name: "TIFF", extensions: ["tif", "tiff"] },
-      //         { name: "WebP", extensions: ["webp"] },
-      //         { name: "AVIF", extensions: ["avif"] },
-      //         {
-      //           name: "All Image Files",
-      //           extensions: [
-      //             "jpg",
-      //             "jpeg",
-      //             "png",
-      //             "gif",
-      //             "webp",
-      //             "ico",
-      //             "bmp",
-      //             "jfif",
-      //             "pjpeg",
-      //             "pjp",
-      //             "svg",
-      //             "svgz",
-      //             "tiff",
-      //             "tif",
-      //             "webp",
-      //             "avif",
-      //             "xbm",
-      //           ],
-      //         },
-      //       ],
-      //     })
-      //     .then(result => {
-      //       ipcRenderer.send("filepath", result.filePaths[0])
-      //     })
-      //     .catch(err => {
-      //       console.log(err)
-      //     });
-
-
+      deja.openDialog("showOpenDialog", dialogConfig);
     }
   </script>
 </head>
