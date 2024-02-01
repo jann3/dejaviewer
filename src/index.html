@@ -14,7 +14,6 @@
     });
 
     document.addEventListener("drop", function (event) {
-      // add drop indicator
       event.preventDefault();
       event.stopPropagation();
 
@@ -22,18 +21,24 @@
         console.log("sending from drag/drop", file.path);
         window.deja.send("filepath", file.path)
       }
+      // drop indicator
+      document.getElementsByTagName("main")[0].style.opacity = "1";
     });
 
     document.addEventListener("dragover", function (event) {
-      // add dragover indicator
       event.preventDefault();
       event.stopPropagation();
+
+      // dragover indicator
+      document.getElementsByTagName("main")[0].style.opacity = "0.7";
     });
 
     document.addEventListener("dragleave", function (event) {
-      // remove dragover indicator
       event.preventDefault();
       event.stopPropagation();
+
+      // dragover indicator
+      document.getElementsByTagName("main")[0].style.opacity = "1";
     });
 
     function openFile() {
@@ -109,6 +114,7 @@
         reload.
       </li>
     </ol>
+    <div class="overlay"></div>
   </main>
 </body>
 
