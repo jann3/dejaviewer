@@ -1,5 +1,6 @@
 const electron = require("electron");
 const { app, BrowserWindow, ipcMain, dialog } = electron;
+// const path = require('node:path')
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
@@ -80,8 +81,9 @@ function createWindow() {
     show: false,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
+      contextIsolation: true,
       enableRemoteModule: true,
+      preload: path.join(__dirname, 'preload.js'),
     }
   });
 
@@ -289,16 +291,24 @@ ipcMain.on("filepath", (event, ipcurl) => {
 ipcMain.on("error", (event, message) => {
   // passes error message back to index.html
   console.log(message);
-  event.sender.send("error", message);
+  win.webContents.send("response", event, message);
 });
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 
 app.whenReady().then(() => {
   app.allowRendererProcessReuse = true;
   createWindow();
+
+  // handle dialog external params
+  ipcMain.handle("dialog", (event, method, params) => {
+    dialog[method](params).then((response) => {
+      console.log(`receiving dialog: ${response}`);
+      //load selected filePath
+      checkFile(response.filePaths[0]);
+    });
+  });
 });
 
 // Quit when all windows are closed.
