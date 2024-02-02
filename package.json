@@ -3,9 +3,7 @@
   "version": "0.1.1",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron .",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "electron ."
   },
   "repository": "https://github.com/Jann3/DejaViewer",
   "keywords": [
