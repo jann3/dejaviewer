@@ -6,7 +6,6 @@ const fs = require("fs");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
 // const exec = promisify(require("child_process").exec);
-const { addBypassChecker } = require("electron-compile");
 
 app.name = "test";
 
@@ -33,11 +32,6 @@ const accepted_file_extensions = [
   "tif",
   "xbm",
 ];
-
-addBypassChecker((filePath) => {
-  // Bypass authenticity on local files to allow open with CLI
-  return filePath.indexOf(app.getAppPath()) === -1;
-});
 
 function createWindow() {
   // // Git status - temporary exec
