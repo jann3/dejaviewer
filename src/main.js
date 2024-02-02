@@ -13,7 +13,7 @@ app.name = "test";
 // be closed automatically when the JavaScript object is garbage collected.
 let win, globalfilename, changeEvent;
 
-const mainpage = "index.html";
+const mainpage = "main.html";
 const accepted_file_extensions = [
   "gif",
   "jpeg",
@@ -73,9 +73,9 @@ function createWindow() {
     backgroundColor: "#fff",
     show: false,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: false,
       contextIsolation: true,
-      enableRemoteModule: true,
+      enableRemoteModule: false,
       preload: path.join(__dirname, 'preload.js'),
     }
   });
