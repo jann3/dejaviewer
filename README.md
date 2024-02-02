@@ -27,7 +27,7 @@ npm start
 
 You can then drag an image onto the main window to open it.
 
-# Why not provide an executable (.exe) or simple installer?
+## Why not provide an executable (.exe) or simple installer?
 As this is a personal project I felt it wasn't necessary. However, I may add an installer in the near future as other people may find this useful.
 
 ## Future work
