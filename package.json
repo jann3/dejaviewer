@@ -4,7 +4,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager ./ --platform=win32 --arch=x64 --out=build && move build/DejaViewer-win32-x64 build/win"
+    "build": "electron-packager ./ --platform=win32 --arch=x64 --out=build --icon=./build/assets/dejaviewer-logo-square-small2.ico && move build/DejaViewer-win32-x64 build/win"
   },
   "repository": "https://github.com/Jann3/DejaViewer",
   "keywords": [
