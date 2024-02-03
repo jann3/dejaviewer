@@ -1,10 +1,12 @@
 {
   "name": "DejaViewer",
   "version": "0.1.1",
+  "description": "Image viewer with hot loading",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager ./ --platform=win32 --arch=x64 --out=build --icon=./build/assets/dejaviewer-logo-square-small2.ico && move build/DejaViewer-win32-x64 build/win"
+    "build": "rmdir \"/build/win\" /s && electron-packager ./ --platform=win32 --arch=x64 --out=build --icon=./build/assets/dejaviewer-logo-square-small2.ico && move build/DejaViewer-win32-x64 build/win",
+    "package": "node src/package.js"
   },
   "repository": "https://github.com/Jann3/DejaViewer",
   "keywords": [
@@ -22,10 +24,39 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "electron": "^28.2.0",
-    "electron-packager": "^17.1.2"
+    "electron-packager": "^17.1.2",
+    "electron-winstaller": "^5.2.1"
   },
   "dependencies": {
     "image-size": "^1.1.1",
     "util.promisify": "^1.1.2"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "authors": "Jann3",
+            "description": "Image viewer with hot loading"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
