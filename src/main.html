@@ -47,12 +47,6 @@
         buttonLabel: 'Open',
         properties: ['openFile'],
         filters: [
-          { name: "JPEG", extensions: ["jpg", "jpeg"] },
-          { name: "PNG", extensions: ["png"] },
-          { name: "GIF", extensions: ["gif"] },
-          { name: "TIFF", extensions: ["tif", "tiff"] },
-          { name: "WebP", extensions: ["webp"] },
-          { name: "AVIF", extensions: ["avif"] },
           {
             name: "All Image Files",
             extensions: [
@@ -74,7 +68,13 @@
               "avif",
               "xbm",
             ],
-          },],
+          },
+          { name: "JPEG", extensions: ["jpg", "jpeg"] },
+          { name: "PNG", extensions: ["png"] },
+          { name: "GIF", extensions: ["gif"] },
+          { name: "TIFF", extensions: ["tif", "tiff"] },
+          { name: "WebP", extensions: ["webp"] },
+          { name: "AVIF", extensions: ["avif"] },],
       };
       deja.openDialog("showOpenDialog", dialogConfig);
     }
