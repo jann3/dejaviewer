@@ -1,5 +1,5 @@
 const electron = require("electron");
-const { app, BrowserWindow, ipcMain, dialog } = electron;
+const { app, BrowserWindow, ipcMain, dialog, globalShortcut } = electron;
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
@@ -146,6 +146,29 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     }
   });
+
+  // Keypress commands
+  win.webContents.on('before-input-event', (event, input) => {
+    if (input.key.toLowerCase() == "escape" && globalfilename == mainpage) {
+      // Escape on main 
+      event.preventDefault();
+      console.log("quit app");
+      app.quit();
+    } else if (input.key.toLowerCase() == "escape") {
+      // Escape elsewhere
+      globalfilename = mainpage;
+      console.log('Escape!', input)
+      event.preventDefault();
+      win.loadURL(
+        url.format({
+          pathname: path.join(dir, mainpage),
+          protocol: "file:",
+          slashes: true,
+        })
+      );
+      win.setSize(900, 600);
+    }
+  })
 
   // Hide loading flash
   win.once("ready-to-show", () => {
