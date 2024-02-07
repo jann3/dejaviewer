@@ -1,7 +1,27 @@
+:root {
+  --main-bg-color: #ffffff;
+  --main-bg-shade: #dadada;
+  --main-color: #000000;
+  --main-side-color: #464566;
+  --main-side-shade: #6b6a85;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-bg-color: #222;
+    --main-bg-shade: #666;
+    --main-color: #ffffff;
+    --main-side-color: #464566;
+    --main-side-shade: #6b6a85;
+  }
+
+}
+
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
   user-select: none;
 }
 
@@ -20,7 +40,7 @@ aside {
   text-justify: center;
   display: flex;
   align-items: center;
-  background-color: #464566;
+  background-color: var(--main-side-color);
 }
 
 svg {
@@ -41,7 +61,7 @@ ol {
 }
 
 li::marker {
-  color: #dadada;
+  color: var(--main-bg-shade);
   font-size: 2.4rem;
   font-family: Chiller, Copperplate, Papyrus, "Courier New", Courier, monospace;
 }
@@ -58,11 +78,11 @@ input[type=button] {
   pointer-events: auto;
   cursor: pointer;
   background-color: #D81E5B;
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
   font-size: 1.4rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
-  border: 3px solid #fff;
+  border: 3px solid var(--main-bg-color);
   box-shadow: 5px 5px 0px 0px #D81E5B;
   transition: all .1s ease-out;
 }
@@ -93,15 +113,15 @@ header {
   height: 1.6rem;
   padding: 0.13rem 0.2rem 0.09rem 0.2rem;
   /* styles that change */
-  color: #6b6a85;
-  background-color: #fff;
-  border: 3px solid #6b6a85;
+  color: var(--main-side-shade);
+  background-color: var(--main-bg-color);
+  border: 3px solid var(--main-side-shade);
 }
 
 header:hover {
-  color: #464566;
-  background-color: #fff;
-  border: 3px solid #464566;
+  color: var(--main-side-color);
+  background-color: var(--main-bg-color);
+  border: 3px solid var(--main-side-color);
 }
 
 @media screen and (orientation:portrait) {
@@ -111,15 +131,15 @@ header:hover {
   }
 
   header {
-    color: #fff;
-    background-color: #6b6a85;
-    border-color: #fff;
+    color: var(--main-bg-color);
+    background-color: var(--main-side-shade);
+    border-color: var(--main-bg-color);
   }
 
   header:hover {
-    color: #fff;
-    background-color: #464566;
-    border-color: #fff;
+    color: var(--main-bg-color);
+    background-color: var(--main-side-color);
+    border-color: var(--main-bg-color);
   }
 
   ol {
@@ -142,7 +162,7 @@ header:hover {
 .cls-1,
 .cls-2,
 .cls-4 {
-  fill: #fff;
+  fill: #ffffff;
 }
 
 .cls-2 {
