@@ -25,7 +25,7 @@ npm install
 npm start
 ```
 
-You can then drag an image onto the main window to open it. Pressing the Escape key will return to main menu
+You can then drag an image onto the main window to open it. Pressing the Escape key will return to main menu and at the main menu pressing Escape will quit the app.
 
 ### Why not provide an executable (.exe) or simple installer?
 As this is a personal project I felt it wasn't necessary. However, I may add an installer in the near future as other people may find this useful.
