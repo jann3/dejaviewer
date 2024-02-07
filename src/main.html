@@ -41,6 +41,26 @@
       document.getElementsByTagName("main")[0].style.opacity = "1";
     });
 
+    function toggleOverlay(target) {
+      let targetOverlay = document.getElementById(target);
+
+      if (targetOverlay.style.display === 'block') {
+        targetOverlay.style.display = 'none';
+      } else {
+        targetOverlay.style.display = 'block';
+      }
+    }
+
+    function toggleButton(target) {
+      let targetButton = document.getElementById(target);
+
+      if (targetButton.textContent === '?') {
+        targetButton.textContent = '✖';
+      } else {
+        targetButton.textContent = '?';
+      }
+    }
+
     function openFile() {
       const dialogConfig = {
         title: 'Select a file',
@@ -84,7 +104,7 @@
 </head>
 
 <body>
-  <header>?</header>
+  <header id="help-button" tabindex="0" onclick="toggleOverlay('help-overlay'); toggleButton('help-button');">?</header>
   <main>
     <aside>
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 271.2 271.35">
@@ -119,7 +139,12 @@
         reload.
       </li>
     </ol>
-    <div class="overlay"></div>
+    <div id="help-overlay" class="overlay">
+      <section>
+        <h1>Help</h1>
+        Press Escape to return to the main page or quit the app.
+      </section>
+    </div>
   </main>
 </body>
 
