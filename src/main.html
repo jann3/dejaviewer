@@ -13,6 +13,15 @@
       console.log(`response from main: ${message}`);
     });
 
+    deja.receive("versionNumber", (message) => {
+      console.log(`version: ${message}`);
+      document.getElementById("versionFooter").innerHTML = `v.${message}`;
+    });
+
+    function getVersion() {
+      window.deja.send("getVersion");
+    }
+
     document.addEventListener("drop", function (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -109,7 +118,7 @@
     content="style-src 'self' https://*.googleapis.com https://*.cdnfonts.com" />
 </head>
 
-<body>
+<body onload="getVersion()">
   <header id="help-button" tabindex="0" onclick="toggleOverlay('help-overlay'); toggleButton('help-button');">?</header>
   <main>
     <aside>
@@ -149,6 +158,7 @@
       <section>
         <h1>Help</h1>
         Press Escape to return to the main page or quit the app.
+        <footer id="versionFooter"></footer>
       </section>
     </div>
     <div id="drag-overlay" class="overlay">
