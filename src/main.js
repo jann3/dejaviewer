@@ -5,6 +5,7 @@ const url = require("url");
 const fs = require("fs");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
+const packageJson = require("../package.json");
 // const exec = promisify(require("child_process").exec);
 
 // squirrel installer events
@@ -373,9 +374,13 @@ ipcMain.on("filepath", (event, ipcurl) => {
   checkFile(ipcurl);
 });
 
+ipcMain.on("getVersion", () => {
+  win.webContents.send("versionNumber", packageJson.version);
+});
+
 ipcMain.on("error", (event, message) => {
   // passes error message back to index.html
-  console.log(message);
+  console.log("error message: ", message);
   win.webContents.send("response", event, message);
 });
 
