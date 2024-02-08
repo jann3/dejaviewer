@@ -163,6 +163,11 @@ header:hover {
   font-size: 1.4rem;
 }
 
+footer {
+  padding-top: 2em;
+  font-size: 1rem;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
