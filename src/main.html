@@ -44,10 +44,16 @@
     function toggleOverlay(target) {
       let targetOverlay = document.getElementById(target);
 
-      if (targetOverlay.style.display === 'block') {
-        targetOverlay.style.display = 'none';
+      if (targetOverlay.classList.contains("fadeIn")) {
+        targetOverlay.classList.toggle("fadeIn");
+        targetOverlay.classList.add("fadeOut");
+        setTimeout(() => {
+          targetOverlay.style.display = 'none';
+        }, 300)
       } else {
-        targetOverlay.style.display = 'block';
+        targetOverlay.classList.toggle("fadeOut");
+        targetOverlay.classList.add("fadeIn");
+        targetOverlay.style.display = "block";
       }
     }
 
@@ -139,7 +145,7 @@
         reload.
       </li>
     </ol>
-    <div id="help-overlay" class="overlay">
+    <div id="help-overlay" class="overlay fadeOut">
       <section>
         <h1>Help</h1>
         Press Escape to return to the main page or quit the app.

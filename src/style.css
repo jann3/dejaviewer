@@ -139,9 +139,16 @@ header:hover {
 }
 
 #help-overlay {
-  animation: fadeIn ease .3s;
   display: none;
   overflow: hidden;
+}
+
+.fadeIn {
+  animation: fadeIn ease-out .3s;
+}
+
+.fadeOut {
+  animation: fadeOut ease-out .3s;
 }
 
 .overlay section {
@@ -156,6 +163,16 @@ header:hover {
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 
