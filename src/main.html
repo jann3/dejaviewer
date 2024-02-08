@@ -22,7 +22,7 @@
         window.deja.send("filepath", file.path)
       }
       // drop indicator
-      document.getElementsByTagName("main")[0].style.opacity = "1";
+      document.getElementById("drag-overlay").style.display = "none";
     });
 
     document.addEventListener("dragover", function (event) {
@@ -30,7 +30,7 @@
       event.stopPropagation();
 
       // dragover indicator
-      document.getElementsByTagName("main")[0].style.opacity = "0.7";
+      document.getElementById("drag-overlay").style.display = "block";
     });
 
     document.addEventListener("dragleave", function (event) {
@@ -38,7 +38,7 @@
       event.stopPropagation();
 
       // dragover indicator
-      document.getElementsByTagName("main")[0].style.opacity = "1";
+      document.getElementById("drag-overlay").style.display = "none";
     });
 
     function toggleOverlay(target) {
@@ -150,6 +150,8 @@
         <h1>Help</h1>
         Press Escape to return to the main page or quit the app.
       </section>
+    </div>
+    <div id="drag-overlay" class="overlay">
     </div>
   </main>
 </body>

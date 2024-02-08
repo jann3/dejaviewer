@@ -18,7 +18,6 @@
     --main-side-color: #464566;
     --main-side-shade: #6b6a85;
   }
-
 }
 
 body {
@@ -129,18 +128,26 @@ header:hover {
 }
 
 .overlay {
-  z-index: 5;
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: var(--main-bg-color);
-  color: var(--main-color);
-  font-family: var(--main-font);
 }
 
 #help-overlay {
+  z-index: 5;
+  color: var(--main-color);
+  font-family: var(--main-font);
+  background-color: var(--main-bg-color);
   display: none;
   overflow: hidden;
+}
+
+#drag-overlay {
+  z-index: 20;
+  display: none;
+  overflow: hidden;
+  background-color: #ffffff;
+  opacity: 0.2;
 }
 
 .fadeIn {
