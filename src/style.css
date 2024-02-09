@@ -150,14 +150,6 @@ header:hover {
   opacity: 0.2;
 }
 
-.fadeIn {
-  animation: fadeIn ease-out .3s;
-}
-
-.fadeOut {
-  animation: fadeOut ease-out .3s;
-}
-
 .overlay section {
   padding: 1rem 3rem 1rem 3rem;
   font-size: 1.4rem;
@@ -168,6 +160,10 @@ footer {
   font-size: 1rem;
 }
 
+.fadeIn {
+  animation: fadeIn ease 0.3s;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -176,6 +172,10 @@ footer {
   100% {
     opacity: 1;
   }
+}
+
+.fadeOut {
+  animation: fadeOut ease-out 0.3s;
 }
 
 @keyframes fadeOut {
