@@ -54,11 +54,11 @@
       let targetOverlay = document.getElementById(target);
 
       if (targetOverlay.classList.contains("fadeIn")) {
+        setTimeout(() => {
+          targetOverlay.style.display = "none";
+        }, 290);
         targetOverlay.classList.toggle("fadeIn");
         targetOverlay.classList.add("fadeOut");
-        setTimeout(() => {
-          targetOverlay.style.display = 'none';
-        }, 300)
       } else {
         targetOverlay.classList.toggle("fadeOut");
         targetOverlay.classList.add("fadeIn");
