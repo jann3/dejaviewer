@@ -138,7 +138,6 @@ function createWindow() {
     height: 600,
     minWidth: 690,
     minHeight: 550,
-    backgroundColor: "#fff",
     show: false,
     autoHideMenuBar: true,
     webPreferences: {
@@ -161,6 +160,8 @@ function createWindow() {
       globalfilename = mainpage;
       console.log('Escape!', input)
       event.preventDefault();
+
+      // load mainpage
       win.loadURL(
         url.format({
           pathname: path.join(dir, mainpage),
@@ -177,7 +178,7 @@ function createWindow() {
     win.show();
   });
 
-  // and load the main.html of the app.
+  // load mainpage
   win.loadURL(
     url.format({
       pathname: path.join(dir, globalfilename),
@@ -340,7 +341,7 @@ function checkFile(url) {
     // Set changeEvent
     changeEvent = false;
 
-    // Load url
+    // Load file
     win.loadURL(globalfilename);
 
     // Start watch
