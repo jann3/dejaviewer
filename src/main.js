@@ -5,7 +5,6 @@ const url = require("url");
 const fs = require("fs");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
-const packageJson = require("../package.json");
 // const exec = promisify(require("child_process").exec);
 
 // squirrel installer events
@@ -178,7 +177,7 @@ function createWindow() {
     win.show();
   });
 
-  // and load the index.html of the app.
+  // and load the main.html of the app.
   win.loadURL(
     url.format({
       pathname: path.join(dir, globalfilename),
@@ -376,7 +375,6 @@ ipcMain.on("filepath", (event, ipcurl) => {
 
 ipcMain.on("getVersion", () => {
   win.webContents.send("versionNumber", app.getVersion());
-  // win.webContents.send("versionNumber", packageJson.version);
 });
 
 ipcMain.on("error", (event, message) => {
