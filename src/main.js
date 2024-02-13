@@ -375,7 +375,8 @@ ipcMain.on("filepath", (event, ipcurl) => {
 });
 
 ipcMain.on("getVersion", () => {
-  win.webContents.send("versionNumber", packageJson.version);
+  win.webContents.send("versionNumber", app.getVersion());
+  // win.webContents.send("versionNumber", packageJson.version);
 });
 
 ipcMain.on("error", (event, message) => {
