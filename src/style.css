@@ -133,6 +133,10 @@ header:hover {
   width: 100%;
 }
 
+.loader {
+  background-color: #ff0000;
+}
+
 #help-overlay {
   z-index: 5;
   color: var(--main-color);

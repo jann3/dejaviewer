@@ -77,7 +77,7 @@ function handleSquirrelEvent() {
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win, globalfilename, changeEvent;
+let win, win2, globalfilename, changeEvent;
 
 const mainpage = "main.html";
 const accepted_file_extensions = [
@@ -279,6 +279,9 @@ function createWindow() {
         })
         .catch((err) => console.error(err));
     } // end size adjust
+
+    // Show loaded file
+    win.show();
   });
 
   // Emitted when the window is closed.
@@ -340,6 +343,8 @@ function checkFile(url) {
 
     // Set changeEvent
     changeEvent = false;
+
+    win.hide();
 
     // Load file
     win.loadURL(globalfilename);
