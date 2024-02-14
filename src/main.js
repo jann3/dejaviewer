@@ -5,7 +5,6 @@ const url = require("url");
 const fs = require("fs");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
-// const exec = promisify(require("child_process").exec);
 
 // squirrel installer events
 if (handleSquirrelEvent()) {
@@ -77,7 +76,7 @@ function handleSquirrelEvent() {
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win, win2, globalfilename, changeEvent;
+let win, globalfilename, changeEvent;
 
 const mainpage = "main.html";
 const accepted_file_extensions = [
@@ -100,14 +99,6 @@ const accepted_file_extensions = [
 ];
 
 function createWindow() {
-  // // Git status - temporary exec
-  // exec("git status")
-  //   .then((stdout, stderr) => {
-  //     if (stdout) console.log("stdout: ", stdout);
-  //     if (stderr) console.log("stderr: ", stderr);
-  //   })
-  //   .catch((err) => console.error(err));
-
   // Check CLI params
   if (process.defaultApp && process.argv.length >= 3) {
     // Opened app as param from default with additional params
@@ -149,7 +140,7 @@ function createWindow() {
   });
 
   // Keypress commands
-  win.webContents.on('before-input-event', (event, input) => {
+  win.webContents.on("before-input-event", (event, input) => {
     if (input.key.toLowerCase() == "escape" && globalfilename == mainpage) {
       // Escape on main 
       event.preventDefault();
@@ -158,8 +149,8 @@ function createWindow() {
     } else if (input.key.toLowerCase() == "escape") {
       // Escape elsewhere
       globalfilename = mainpage;
-      console.log('Escape!', input)
       event.preventDefault();
+      console.log("go to main page");
 
       // load mainpage
       win.loadURL(
@@ -348,6 +339,10 @@ function checkFile(url) {
 
     // Load file
     win.loadURL(globalfilename);
+
+    // watcher works for local files only
+    // will need to look at the http header 302 If-Modified-Since
+    // for working with remote files
 
     // Start watch
     let watcher = fs.watch(globalfilename, (eventType, filename) => {
