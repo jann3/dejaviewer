@@ -43,15 +43,17 @@ function toggleOverlay(target) {
     let targetOverlay = document.getElementById(target);
 
     if (targetOverlay.classList.contains("fadeIn")) {
-        setTimeout(() => {
-            targetOverlay.style.display = "none";
-        }, 290);
         targetOverlay.classList.toggle("fadeIn");
         targetOverlay.classList.add("fadeOut");
-    } else {
+        setTimeout(() => {
+            targetOverlay.style.display = "none";
+        }, 280);
+    } else if (targetOverlay.classList.contains("fadeOut")) {
         targetOverlay.classList.toggle("fadeOut");
         targetOverlay.classList.add("fadeIn");
         targetOverlay.style.display = "block";
+    } else {
+        // do nothing
     }
 }
 
@@ -59,9 +61,17 @@ function toggleButton(target) {
     let targetButton = document.getElementById(target);
 
     if (targetButton.textContent === '?') {
-        targetButton.textContent = '✖';
+        targetButton.classList.add("spinOut");
+        setTimeout(() => {
+            targetButton.textContent = '✖';
+            targetButton.classList.toggle("spinOut");
+        }, 100);
     } else {
-        targetButton.textContent = '?';
+        targetButton.classList.add("spinOut");
+        setTimeout(() => {
+            targetButton.textContent = '?';
+            targetButton.classList.toggle("spinOut");
+        }, 100);
     }
 }
 

@@ -192,6 +192,20 @@ footer {
   }
 }
 
+.spinOut {
+  animation: spinOut ease-out 0.1s;
+}
+
+@keyframes spinOut {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (orientation:portrait) {
   main {
     grid-template-columns: 1fr;
