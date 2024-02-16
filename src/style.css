@@ -204,7 +204,7 @@ footer {
 }
 
 .spinOut {
-  animation: spinOut ease-out 0.1s;
+  animation: spinOut ease-in 0.1s;
 }
 
 @keyframes spinOut {
@@ -213,7 +213,7 @@ footer {
   }
 
   100% {
-    transform: rotate(360deg);
+    transform: rotate(60deg);
   }
 }
 
