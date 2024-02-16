@@ -7,9 +7,8 @@ deja.receive("versionNumber", (message) => {
     document.getElementById("versionFooter").innerHTML = `v.${message}`;
 });
 
-function getVersion() {
+window.onload = function () {
     window.deja.send("getVersion");
-    window.deja.send("log", "from renderer.js");
 }
 
 document.addEventListener("drop", (event) => {
