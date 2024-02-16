@@ -39,7 +39,7 @@
           <div>Open an image by using the Browse button. Or drag and drop the file into this
             window.</div>
           <div>
-            <input type="button" tabindex="1" value="Browse" onclick="openFile();" />
+            <input id="browse-button" type="button" tabindex="1" value="Browse" onclick="openFile();" />
           </div>
         </span>
       </li>
@@ -56,7 +56,7 @@
         <footer id="versionFooter"></footer>
       </section>
     </div>
-    <div id="drag-overlay" class="overlay">
+    <div id="drag-overlay" class="overlay dragleave">
     </div>
   </main>
 </body>

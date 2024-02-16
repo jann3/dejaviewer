@@ -11,7 +11,7 @@ function getVersion() {
     window.deja.send("getVersion");
 }
 
-document.addEventListener("drop", function (event) {
+document.addEventListener("drop", (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -20,23 +20,26 @@ document.addEventListener("drop", function (event) {
         window.deja.send("filepath", file.path)
     }
     // drop indicator
-    document.getElementById("drag-overlay").style.display = "none";
+    document.getElementById("drag-overlay").classList.add("dragleave");
+    document.getElementById("drag-overlay").classList.remove("dragover");
 });
 
-document.addEventListener("dragover", function (event) {
+document.addEventListener("dragover", (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     // dragover indicator
-    document.getElementById("drag-overlay").style.display = "block";
+    document.getElementById("drag-overlay").classList.add("dragover");
+    document.getElementById("drag-overlay").classList.remove("dragleave");
 });
 
-document.addEventListener("dragleave", function (event) {
+document.addEventListener("dragleave", (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     // dragover indicator
-    document.getElementById("drag-overlay").style.display = "none";
+    document.getElementById("drag-overlay").classList.add("dragleave");
+    document.getElementById("drag-overlay").classList.remove("dragover");
 });
 
 function toggleOverlay(target) {

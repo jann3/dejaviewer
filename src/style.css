@@ -20,6 +20,10 @@
   }
 }
 
+html {
+  pointer-events: none;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -29,7 +33,6 @@ body {
 }
 
 main {
-  pointer-events: none;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
@@ -100,6 +103,7 @@ input[type=button]:active {
 }
 
 header {
+  pointer-events: auto;
   cursor: pointer;
   position: absolute;
   text-align: center;
@@ -148,10 +152,17 @@ header:hover {
 
 #drag-overlay {
   z-index: 20;
-  display: none;
   overflow: hidden;
   background-color: #ffffff;
   opacity: 0.2;
+}
+
+.dragleave {
+  display: none;
+}
+
+.dragover {
+  display: block;
 }
 
 .overlay section {
