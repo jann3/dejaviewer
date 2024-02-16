@@ -9,6 +9,7 @@ deja.receive("versionNumber", (message) => {
 
 function getVersion() {
     window.deja.send("getVersion");
+    window.deja.send("log", "from renderer.js");
 }
 
 document.addEventListener("drop", (event) => {

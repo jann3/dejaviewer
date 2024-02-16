@@ -378,6 +378,11 @@ ipcMain.on("getVersion", () => {
   win.webContents.send("versionNumber", app.getVersion());
 });
 
+// receive log messages from renderer
+ipcMain.on("log", (event, message) => {
+  console.log(`from renderer: ${message}`);
+});
+
 ipcMain.on("error", (event, message) => {
   // passes error message back to index.html
   console.log("error message: ", message);

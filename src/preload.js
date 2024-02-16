@@ -4,7 +4,7 @@ contextBridge.exposeInMainWorld("deja", {
   openDialog: (method, config) => ipcRenderer.invoke("dialog", method, config),
   send: (channel, data) => {
     // whitelist channels
-    let validChannels = ["filepath", "getVersion"];
+    let validChannels = ["filepath", "getVersion", "log"];
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data);
     }
