@@ -42,40 +42,65 @@ document.addEventListener("dragleave", (event) => {
     document.getElementById("drag-overlay").classList.remove("dragover");
 });
 
-function toggleOverlay(target) {
-    let targetOverlay = document.getElementById(target);
+function toggleOverlay(target, targetButton) {
+    const targetOverlay = document.getElementById(target);
 
     if (targetOverlay.classList.contains("fadeIn")) {
-        targetOverlay.classList.toggle("fadeIn");
         targetOverlay.classList.add("fadeOut");
+        targetOverlay.classList.remove("fadeIn");
         setTimeout(() => {
             targetOverlay.style.display = "none";
         }, 280);
     } else if (targetOverlay.classList.contains("fadeOut")) {
-        targetOverlay.classList.toggle("fadeOut");
         targetOverlay.classList.add("fadeIn");
+        targetOverlay.classList.remove("fadeOut");
         targetOverlay.style.display = "block";
     } else {
         // do nothing
     }
+    // also toggle button
+    toggleButton(target, targetButton);
 }
 
-function toggleButton(target) {
-    let targetButton = document.getElementById(target);
+function toggleButton(targetOverlay, target) {
+    const targetButton = document.getElementById(target);
+    const dataState = targetButton.dataset.state;
+    const dataInitial = targetButton.dataset.initial;
+    const dataAlt = targetButton.dataset.alt;
 
-    if (targetButton.textContent === '?') {
+    if (dataState === "false") {
+        targetButton.dataset.state = "true";
         targetButton.classList.add("spinOut");
         setTimeout(() => {
-            targetButton.textContent = '✖';
-            targetButton.classList.toggle("spinOut");
+            targetButton.innerText = dataAlt;
+            targetButton.classList.remove("spinOut");
+        }, 100);
+    } else if (dataState === "true") {
+        targetButton.dataset.state = "false";
+        targetButton.classList.add("spinOut");
+        setTimeout(() => {
+            targetButton.innerText = dataInitial;
+            targetButton.classList.remove("spinOut");
         }, 100);
     } else {
-        targetButton.classList.add("spinOut");
-        setTimeout(() => {
-            targetButton.textContent = '?';
-            targetButton.classList.toggle("spinOut");
-        }, 100);
+        // do nothing
     }
+    toggleOverlaySync(targetOverlay, target);
+}
+
+function toggleOverlaySync(targetOverlay, targetButton) {
+    const syncOverlay = document.getElementById(targetOverlay);
+    const syncButton = document.getElementById(targetButton);
+
+    setTimeout(() => {
+        if (syncOverlay.classList.contains("fadeOut")) {
+            syncButton.innerText = syncButton.dataset.initial;
+        } else if (syncOverlay.classList.contains("fadeIn")) {
+            syncButton.innerText = syncButton.dataset.alt;
+        } else {
+            // do nothing
+        }
+    }, 500);
 }
 
 function openFile() {
