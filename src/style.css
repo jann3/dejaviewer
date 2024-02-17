@@ -94,6 +94,7 @@ input[type=button] {
 }
 
 input[type=button]:hover {
+  pointer-events: auto;
   background-color: #e83772;
 }
 
@@ -139,6 +140,11 @@ header:hover {
 
 .loader {
   background-color: #ff0000;
+}
+
+/* hacky solution */
+.no-pointer {
+  pointer-events: none !important;
 }
 
 #help-overlay {

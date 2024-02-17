@@ -22,6 +22,10 @@ document.addEventListener("drop", (event) => {
     // drop indicator
     document.getElementById("drag-overlay").classList.add("dragleave");
     document.getElementById("drag-overlay").classList.remove("dragover");
+
+    // remove no pointer class for elements
+    document.getElementById("browse-button").classList.remove("no-pointer");
+    document.getElementById("help-button").classList.remove("no-pointer");
 });
 
 document.addEventListener("dragover", (event) => {
@@ -31,6 +35,10 @@ document.addEventListener("dragover", (event) => {
     // dragover indicator
     document.getElementById("drag-overlay").classList.add("dragover");
     document.getElementById("drag-overlay").classList.remove("dragleave");
+
+    // add no pointer class for elements
+    document.getElementById("browse-button").classList.add("no-pointer");
+    document.getElementById("help-button").classList.add("no-pointer");
 });
 
 document.addEventListener("dragleave", (event) => {
@@ -40,6 +48,10 @@ document.addEventListener("dragleave", (event) => {
     // dragover indicator
     document.getElementById("drag-overlay").classList.add("dragleave");
     document.getElementById("drag-overlay").classList.remove("dragover");
+
+    // remove no pointer class for elements
+    document.getElementById("browse-button").classList.remove("no-pointer");
+    document.getElementById("help-button").classList.remove("no-pointer");
 });
 
 function toggleOverlay(target, targetButton) {
