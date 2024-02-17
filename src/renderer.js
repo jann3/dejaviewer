@@ -9,6 +9,7 @@ deja.receive("versionNumber", (message) => {
 
 window.onload = function () {
     window.deja.send("getVersion");
+    addEventListeners()
 }
 
 document.addEventListener("drop", (event) => {
@@ -152,4 +153,21 @@ function openFile() {
             { name: "AVIF", extensions: ["avif"] },],
     };
     deja.openDialog("showOpenDialog", dialogConfig);
+}
+
+function handleKeypPress(event) {
+    if (event.key === "Enter" || event.key === " ") {
+        document.getElementById("help-button").click();
+    }
+}
+
+function addEventListeners() {
+    const browseButton = document.getElementById("browse-button");
+    const helpButton = document.getElementById("help-button");
+
+    browseButton.addEventListener("click", openFile);
+    helpButton.addEventListener("click", function () {
+        toggleOverlay("help-overlay", "help-button")
+    });
+    helpButton.addEventListener("keyup", handleKeypPress);
 }
