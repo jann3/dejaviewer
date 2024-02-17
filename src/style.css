@@ -7,6 +7,7 @@
   --main-color: #000000;
   --main-side-color: #464566;
   --main-side-shade: #6b6a85;
+  --main-contrast-color: #D81E5B;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -83,7 +84,7 @@ li div {
 input[type=button] {
   pointer-events: auto;
   cursor: pointer;
-  background-color: #D81E5B;
+  background-color: var(--main-contrast-color);
   color: #ffffff;
   font-weight: 600;
   font-size: 1.4rem;
@@ -93,9 +94,15 @@ input[type=button] {
   transition: all .1s ease-out;
 }
 
-input[type=button]:hover {
+input[type=button]:hover,
+input[type=button]:focus {
   pointer-events: auto;
   background-color: #e83772;
+}
+
+input[type=button]:focus,
+input[type=button]:focus-visible {
+  outline-color: var(--main-contrast-color);
 }
 
 input[type=button]:active {
@@ -126,10 +133,17 @@ header {
   border: 3px solid var(--main-side-shade);
 }
 
-header:hover {
+header:hover,
+header:focus {
   color: var(--main-side-color);
   background-color: var(--main-bg-color);
   border: 3px solid var(--main-side-color);
+}
+
+header:focus,
+header:focus-visible {
+  outline-color: var(--main-contrast-color);
+  color: var(--main-color);
 }
 
 .overlay {
@@ -235,8 +249,9 @@ footer {
     border-color: var(--main-bg-color);
   }
 
-  header:hover {
-    color: var(--main-bg-color);
+  header:hover,
+  header:focus {
+    color: var(--main-color);
     background-color: var(--main-side-color);
     border-color: var(--main-bg-color);
   }
