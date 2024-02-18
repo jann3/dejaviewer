@@ -83,6 +83,7 @@ function toggleButton(targetOverlay, target) {
 
     if (dataState === "false") {
         targetButton.dataset.state = "true";
+        targetButton.setAttribute("aria-pressed", "true");
         targetButton.classList.add("spinOut");
         setTimeout(() => {
             targetButton.innerText = dataAlt;
@@ -90,6 +91,7 @@ function toggleButton(targetOverlay, target) {
         }, 100);
     } else if (dataState === "true") {
         targetButton.dataset.state = "false";
+        targetButton.setAttribute("aria-pressed", "false");
         targetButton.classList.add("spinOut");
         setTimeout(() => {
             targetButton.innerText = dataInitial;

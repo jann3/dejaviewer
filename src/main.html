@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +14,8 @@
 </head>
 
 <body>
-  <header id="help-button" tabindex="2" data-initial="?" data-alt="✖" data-state="false">?</header>
+  <header id="help-button" tabindex="2" data-initial="?" data-alt="✖" data-state="false" role="button" arialabel="help"
+    aria-pressed="false">?</header>
   <main>
     <aside>
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 271.2 271.35">
@@ -39,7 +40,7 @@
           <div>Open an image by using the Browse button. Or drag and drop the file into this
             window.</div>
           <div>
-            <input id="browse-button" type="button" tabindex="1" value="Browse" />
+            <input id="browse-button" type="button" tabindex="1" value="Browse" role="button" />
           </div>
         </span>
       </li>
