@@ -116,6 +116,16 @@ function toggleOverlaySync(targetOverlay, targetButton) {
     }, 500);
 }
 
+function toggleMainButton() {
+    const browseButton = document.getElementById("browse-button");
+
+    if (browseButton.disabled === true) {
+        browseButton.disabled = false;
+    } else {
+        browseButton.disabled = true;
+    }
+}
+
 function openFile() {
     const dialogConfig = {
         title: 'Select a file',
@@ -167,7 +177,8 @@ function addEventListeners() {
 
     browseButton.addEventListener("click", openFile);
     helpButton.addEventListener("click", function () {
-        toggleOverlay("help-overlay", "help-button")
+        toggleOverlay("help-overlay", "help-button");
+        toggleMainButton();
     });
     helpButton.addEventListener("keyup", handleKeypPress);
 }
