@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "rmdir  /s /q \"build/win\" && electron-packager ./ --platform=win32 --arch=x64 --out=build --icon=./build/assets/dejaviewer-icon-square-small.ico && move build/DejaViewer-win32-x64 build/win",
+    "build": "(if exist \"build/win\" rmdir  /s /q \"build/win\") && electron-packager ./ --platform=win32 --arch=x64 --out=build --icon=./build/assets/dejaviewer-icon-square-small.ico && move build/DejaViewer-win32-x64 build/win",
     "package": "node src/package.js"
   },
   "repository": {
