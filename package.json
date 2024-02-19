@@ -1,5 +1,5 @@
 {
-  "name": "DejaViewer",
+  "name": "dejaviewer",
   "version": "0.1.9",
   "description": "Image viewer with hot loading",
   "main": "src/main.js",
@@ -8,10 +8,12 @@
     "build": "rmdir  /s /q \"build/win\" && electron-packager ./ --platform=win32 --arch=x64 --out=build --icon=./build/assets/dejaviewer-icon-square-small.ico && move build/DejaViewer-win32-x64 build/win",
     "package": "node src/package.js"
   },
-  "repository": "https://github.com/Jann3/DejaViewer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jann3/DejaViewer.git"
+  },
   "keywords": [
-    "DejaViewer",
-    "Deja",
+    "deja",
     "viewer",
     "photo",
     "image",
