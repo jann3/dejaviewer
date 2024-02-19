@@ -155,7 +155,7 @@ function createWindow() {
       // load mainpage
       win.loadURL(
         url.format({
-          pathname: path.join(dir, mainpage),
+          pathname: path.join(__dirname, mainpage),
           protocol: "file:",
           slashes: true,
         })
