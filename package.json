@@ -1,6 +1,6 @@
 {
   "name": "DejaViewer",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Image viewer with hot loading",
   "main": "src/main.js",
   "scripts": {
