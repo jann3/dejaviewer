@@ -101,13 +101,13 @@ function toggleButton(targetOverlay, target) {
         targetButton.setAttribute("aria-pressed", "false");
         targetButton.classList.add("spinOut");
         setTimeout(() => {
+            // after animation reset the icon
             targetButton.innerText = dataInitial;
             targetButton.classList.remove("spinOut");
         }, 100);
     } else {
         // do nothing
     }
-    toggleOverlaySync(targetOverlay, target);
 }
 
 function toggleOverlaySync(targetOverlay, targetButton) {
@@ -123,7 +123,7 @@ function toggleOverlaySync(targetOverlay, targetButton) {
         } else {
             // do nothing
         }
-    }, 500);
+    }, 600);
 }
 
 function toggleMainButton() {
@@ -188,6 +188,7 @@ function addEventListeners() {
     browseButton.addEventListener("click", openFile);
     helpButton.addEventListener("click", function () {
         toggleOverlay("help-overlay", "help-button");
+        toggleOverlaySync("help-overlay", "help-button");
         toggleMainButton();
     });
     helpButton.addEventListener("keyup", handleKeypPress);
