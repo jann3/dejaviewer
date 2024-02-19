@@ -55,7 +55,7 @@ document.addEventListener("dragleave", (event) => {
     document.getElementById("help-button").classList.remove("no-pointer");
 });
 
-function toggleOverlay(target, targetButton) {
+function toggleOverlay(target) {
     const targetOverlay = document.getElementById(target);
 
     if (targetOverlay.classList.contains("fadeIn")) {
@@ -76,11 +76,9 @@ function toggleOverlay(target, targetButton) {
     } else {
         // do nothing
     }
-    // also toggle button
-    toggleButton(target, targetButton);
 }
 
-function toggleButton(targetOverlay, target) {
+function toggleButton(target) {
     const targetButton = document.getElementById(target);
     const dataState = targetButton.dataset.state;
     const dataInitial = targetButton.dataset.initial;
@@ -126,13 +124,13 @@ function toggleOverlaySync(targetOverlay, targetButton) {
     }, 600);
 }
 
-function toggleMainButton() {
-    const browseButton = document.getElementById("browse-button");
+function toggleDisable(target) {
+    const targetButton = document.getElementById(target);
 
-    if (browseButton.disabled === true) {
-        browseButton.disabled = false;
+    if (targetButton.disabled === true) {
+        targetButton.disabled = false;
     } else {
-        browseButton.disabled = true;
+        targetButton.disabled = true;
     }
 }
 
@@ -187,9 +185,10 @@ function addEventListeners() {
 
     browseButton.addEventListener("click", openFile);
     helpButton.addEventListener("click", function () {
-        toggleOverlay("help-overlay", "help-button");
+        toggleOverlay("help-overlay");
+        toggleButton("help-button");
         toggleOverlaySync("help-overlay", "help-button");
-        toggleMainButton();
+        toggleDisable("browse-button");
     });
     helpButton.addEventListener("keyup", handleKeypPress);
 }
