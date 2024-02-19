@@ -59,15 +59,20 @@ function toggleOverlay(target, targetButton) {
     const targetOverlay = document.getElementById(target);
 
     if (targetOverlay.classList.contains("fadeIn")) {
+        // add fadeOut, remove fadeIn and add aria-hidden
         targetOverlay.classList.add("fadeOut");
         targetOverlay.classList.remove("fadeIn");
+        targetOverlay.setAttribute("aria-hidden", "true");
         setTimeout(() => {
+            // hide overlay after animation
             targetOverlay.style.display = "none";
         }, 280);
     } else if (targetOverlay.classList.contains("fadeOut")) {
+        // add fadeIn, remove fadeOut, set aria-hidden to false and show overlay
         targetOverlay.classList.add("fadeIn");
         targetOverlay.classList.remove("fadeOut");
         targetOverlay.style.display = "block";
+        targetOverlay.setAttribute("aria-hidden", "false");
     } else {
         // do nothing
     }
@@ -82,10 +87,12 @@ function toggleButton(targetOverlay, target) {
     const dataAlt = targetButton.dataset.alt;
 
     if (dataState === "false") {
+        // set button state to on and aria pressed, spinOut animation 
         targetButton.dataset.state = "true";
         targetButton.setAttribute("aria-pressed", "true");
         targetButton.classList.add("spinOut");
         setTimeout(() => {
+            // after animation switch icon
             targetButton.innerText = dataAlt;
             targetButton.classList.remove("spinOut");
         }, 100);
@@ -108,6 +115,7 @@ function toggleOverlaySync(targetOverlay, targetButton) {
     const syncButton = document.getElementById(targetButton);
 
     setTimeout(() => {
+        // sync states after animations
         if (syncOverlay.classList.contains("fadeOut")) {
             syncButton.innerText = syncButton.dataset.initial;
         } else if (syncOverlay.classList.contains("fadeIn")) {
