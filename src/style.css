@@ -147,9 +147,10 @@ header:focus-visible {
 }
 
 .overlay {
+  padding: 1rem 3rem 1rem 3rem;
   position: absolute;
-  height: 100%;
-  width: 100%;
+  height: calc(100% - 2rem);
+  width: calc(100% - 6rem);
 }
 
 .loader {
@@ -185,7 +186,7 @@ header:focus-visible {
   display: block;
 }
 
-.overlay section {
+section.overlay {
   padding: 1rem 3rem 1rem 3rem;
   font-size: 1.4rem;
 }
