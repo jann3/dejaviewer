@@ -142,16 +142,24 @@ function createWindow() {
 
   // Keypress commands
   win.webContents.on("before-input-event", (event, input) => {
-    if (input.key.toLowerCase() == "escape" && globalfilename == mainpage) {
-      // Escape on main 
+    if (input.isAutoRepeat === true) {
+      // Repeating keypress do nothing
+      event.preventDefault();
+    } else if (input.key.toLowerCase() == "escape" && globalfilename == mainpage && isModalOpen() === true) {
+      // Close modal
+      event.preventDefault();
+      setModalOpen(false);
+      console.log("close modal called");
+      win.webContents.send("response", "closeModal");
+    } else if (input.key.toLowerCase() == "escape" && globalfilename == mainpage) {
+      // Escape on main (quit)
       event.preventDefault();
       console.log("quit app");
       app.quit();
     } else if (input.key.toLowerCase() == "escape") {
-      // Escape elsewhere
+      // Escape elsewhere (go to main)
       globalfilename = mainpage;
       event.preventDefault();
-      console.log("go to main page");
 
       // load mainpage
       win.loadURL(
