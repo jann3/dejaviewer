@@ -34,7 +34,7 @@
         </g>
       </svg>
     </aside>
-    <ol>
+    <ol id="main-intro" aria-hidden="false" role="presentation">
       <li>
         <span>
           <div>Open an image file by browsing. Or, drag and drop it into this
@@ -49,9 +49,13 @@
         window to refresh.
       </li>
     </ol>
-    <section id="help-overlay" class="overlay fadeOut" aria-hidden="true" aria-live="assertive">
-      <h1>Help</h1>
-      Press Escape to return to the main page or quit the app.
+    <section id="help-overlay" class="overlay fadeOut" aria-hidden="true" aria-live="assertive" aria-modal="true"
+      aria-labelledby="help-heading-1">
+      <h1 id="help-heading-1">Help</h1>
+      <h2>Keys</h2>
+      <p>
+        Press Escape to return to the main menu at any point. Pressing Escape again will quit the app.</p>
+      <p>Keyboard navigation using Tab and Space or Enter is enabled.</p>
       <footer id="versionFooter" aria-label="version"></footer>
     </section>
 
