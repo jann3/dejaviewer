@@ -1,5 +1,9 @@
 deja.receive("response", (message) => {
     console.log(`response from main: ${message}`);
+
+    if (message === "closeModal") {
+        document.getElementById("help-button").click();
+    }
 });
 
 deja.receive("versionNumber", (message) => {
@@ -124,6 +128,18 @@ function toggleOverlaySync(targetOverlay, targetButton) {
     }, 600);
 }
 
+function toggleModalStatus(target) {
+    const targetOverlay = document.getElementById(target);
+
+    setTimeout(() => {
+        if (targetOverlay.classList.contains("fadeIn")) {
+            deja.send("modalStatus", "open");
+        } else {
+            deja.send("modalStatus", "closed");
+        }
+    }, 300);
+}
+
 function toggleDisable(target) {
     const targetButton = document.getElementById(target);
 
@@ -131,6 +147,15 @@ function toggleDisable(target) {
         targetButton.disabled = false;
     } else {
         targetButton.disabled = true;
+    }
+}
+
+function toggleAriaHidden(target) {
+    const targetEl = document.getElementById(target);
+    if (targetEl.ariaHidden == "false") {
+        targetEl.setAttribute("aria-hidden", "true");
+    } else {
+        targetEl.setAttribute("aria-hidden", "false");
     }
 }
 
@@ -174,6 +199,7 @@ function openFile() {
 }
 
 function handleKeypPress(event) {
+    // handler to assign keys for non-button button
     if (event.key === "Enter" || event.key === " ") {
         document.getElementById("help-button").click();
     }
@@ -189,6 +215,8 @@ function addEventListeners() {
         toggleButton("help-button");
         toggleOverlaySync("help-overlay", "help-button");
         toggleDisable("browse-button");
+        toggleModalStatus("help-overlay");
+        toggleAriaHidden("main-intro");
     });
     helpButton.addEventListener("keyup", handleKeypPress);
 }

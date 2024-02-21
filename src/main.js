@@ -5,6 +5,7 @@ const url = require("url");
 const fs = require("fs");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
+const { setModalOpen, isModalOpen } = require("./state");
 
 // squirrel installer events
 if (handleSquirrelEvent()) {
@@ -376,6 +377,18 @@ ipcMain.on("filepath", (event, ipcurl) => {
 
 ipcMain.on("getVersion", () => {
   win.webContents.send("versionNumber", app.getVersion());
+});
+
+ipcMain.on("modalStatus", (event, message) => {
+  if (message === "open") {
+    setModalOpen(true);
+    console.log("modal open");
+  } else if (message === "closed") {
+    setModalOpen(false);
+    console.log("modal closed");
+  } else {
+    // no nothing
+  }
 });
 
 // receive log messages from renderer
