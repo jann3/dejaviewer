@@ -188,7 +188,10 @@ header:focus-visible {
 
 section.overlay {
   padding: 1rem 3rem 1rem 3rem;
-  font-size: 1.4rem;
+}
+
+#help-overlay {
+  font-size: 1.2rem;
 }
 
 footer {
@@ -236,6 +239,18 @@ footer {
   100% {
     transform: rotate(60deg);
   }
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.2rem;
 }
 
 @media screen and (orientation:portrait) {
