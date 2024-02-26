@@ -156,6 +156,26 @@ header:focus-visible {
 
 .loader {
   background-color: var(--main-side-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  cursor: wait !important;
+}
+
+.loader svg {
+  animation: scale 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
 }
 
 /* hacky solution */
