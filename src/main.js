@@ -333,7 +333,10 @@ function isAcceptableExt(filename) {
 function loadWithLoader(url) {
   win.loadFile(path.join(__dirname, "loader.html"));
   win.webContents.once("did-finish-load", () => {
-    win.loadURL(url);
+    setTimeout(() => {
+      // add slight delay
+      win.loadURL(url);
+    }, 1200);
   });
 }
 
@@ -437,6 +440,18 @@ app.whenReady().then(() => {
       checkFile(response.filePaths[0]);
     });
   });
+  // Listen for preload HTML event from preload script
+  ipcMain.on('preload-html-complete', (event, html) => {
+    // Now you have the preloaded HTML content, you can use it as needed
+    console.log('Preloaded HTML:', html);
+    // For example, you can load it into the window
+    win.loadURL(`data:text/html,${encodeURIComponent(html)}`);
+  });
+
+  // Trigger preloading of HTML file
+
+  const filePath = path.join(__dirname, "loader.html");
+  win.webContents.send('preload-html', filePath);
 });
 
 // Quit when all windows are closed.
