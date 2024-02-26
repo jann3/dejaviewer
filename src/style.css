@@ -155,7 +155,7 @@ header:focus-visible {
 }
 
 .loader {
-  background-color: #ff0000;
+  background-color: var(--main-side-color);
 }
 
 /* hacky solution */

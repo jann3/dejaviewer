@@ -195,6 +195,10 @@ function createWindow() {
     checkFile(navurl);
   });
 
+  win.webContents.on("did-start-loading", () => {
+    win.loadFile("loader.html");
+  });
+
   win.webContents.on("did-finish-load", (event, isMainFrame) => {
     console.log("loaded");
 
@@ -326,6 +330,13 @@ function isAcceptableExt(filename) {
   }
 }
 
+function loadWithLoader(url) {
+  win.loadFile(path.join(__dirname, "loader.html"));
+  win.webContents.once("did-finish-load", () => {
+    win.loadURL(url);
+  });
+}
+
 function checkFile(url) {
   // No file url, return false
   if (url === undefined) return false;
@@ -344,10 +355,8 @@ function checkFile(url) {
     // Set changeEvent
     changeEvent = false;
 
-    win.hide();
-
     // Load file
-    win.loadURL(globalfilename);
+    loadWithLoader(globalfilename);
 
     // watcher works for local files only
     // will need to look at the http header 302 If-Modified-Since
