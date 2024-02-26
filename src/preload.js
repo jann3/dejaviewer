@@ -2,9 +2,21 @@ const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("deja", {
   openDialog: (method, config) => ipcRenderer.invoke("dialog", method, config),
+  dataSync: async (channel, data) => {
+    let validChannels = ["getVersion"];
+    if (validChannels.includes(channel)) {
+      try {
+        const response = await ipcRenderer.invoke(channel, data);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+      }
+    }
+  },
   send: (channel, data) => {
     // whitelist channels
-    let validChannels = ["filepath", "getVersion", "log", "modalStatus"];
+    let validChannels = ["filepath", "log", "modalStatus"];
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data);
     }

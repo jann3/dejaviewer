@@ -6,14 +6,19 @@ deja.receive("response", (message) => {
     }
 });
 
-deja.receive("versionNumber", (message) => {
-    console.log(`version: ${message}`);
-    document.getElementById("versionFooter").innerHTML = `v.${message}`;
-});
+async function getVersion() {
+    try {
+        const message = await window.deja.dataSync("getVersion");
+        console.log(`response to version: ${message}`);
+        document.getElementById("versionFooter").innerHTML = `v.${message}`;
+    } catch (error) {
+        console.error(`error fetching version: ${error}`);
+    }
+}
 
 window.onload = function () {
-    window.deja.send("getVersion");
-    addEventListeners()
+    getVersion();
+    addEventListeners();
 }
 
 document.addEventListener("drop", (event) => {

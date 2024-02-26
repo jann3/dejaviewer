@@ -383,8 +383,11 @@ ipcMain.on("filepath", (event, ipcurl) => {
   checkFile(ipcurl);
 });
 
-ipcMain.on("getVersion", () => {
-  win.webContents.send("versionNumber", app.getVersion());
+ipcMain.handle("getVersion", async (event) => {
+  return new Promise(resolve => {
+    console.log("data ready");
+    resolve({ data: app.getVersion() });
+  });
 });
 
 ipcMain.on("modalStatus", (event, message) => {
