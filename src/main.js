@@ -332,6 +332,7 @@ function isAcceptableExt(filename) {
 
 function loadWithLoader(url) {
   win.loadFile(path.join(__dirname, "loader.html"));
+  win.show();
   win.webContents.once("did-finish-load", () => {
     setTimeout(() => {
       // add slight delay
@@ -358,6 +359,7 @@ function checkFile(url) {
     // Set changeEvent
     changeEvent = false;
 
+    win.hide();
     // Load file
     loadWithLoader(globalfilename);
 
@@ -402,16 +404,16 @@ ipcMain.handle("getVersion", async (event) => {
   });
 });
 
-const modalActionsMapping = {
+const modalStatusMapping = {
   open: () => setModalOpen(true),
   closed: () => setModalOpen(false),
   // Add other mappings if needed
 };
 
 ipcMain.on("modalStatus", (event, message) => {
-  const modalAction = modalActionsMapping[message];
-  if (modalAction) {
-    modalAction();
+  const modalStatus = modalStatusMapping[message];
+  if (modalStatus) {
+    modalStatus();
   }
 });
 
