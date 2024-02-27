@@ -358,7 +358,6 @@ function checkFile(url) {
     // Set changeEvent
     changeEvent = false;
 
-    win.hide();
     // Load file
     loadWithLoader(globalfilename);
 
