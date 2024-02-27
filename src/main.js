@@ -397,7 +397,7 @@ ipcMain.on("filepath", (event, ipcurl) => {
   checkFile(ipcurl);
 });
 
-ipcMain.handle("getVersion", async (event) => {
+ipcMain.handle("versionNumber", async (event) => {
   return new Promise(resolve => {
     console.log("data ready");
     resolve({ data: app.getVersion() });
@@ -414,6 +414,8 @@ ipcMain.on("modalStatus", (event, message) => {
   const modalStatus = modalStatusMapping[message];
   if (modalStatus) {
     modalStatus();
+  } else {
+    console.log(`modalStatus ${message} not recognized`);
   }
 });
 

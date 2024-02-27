@@ -8,7 +8,7 @@ deja.receive("response", (message) => {
 
 async function getVersion() {
     try {
-        const message = await window.deja.dataSync("getVersion");
+        const message = await window.deja.get("versionNumber");
         console.log(`response to version: ${message}`);
         document.getElementById("versionFooter").innerHTML = `v.${message}`;
     } catch (error) {

@@ -2,8 +2,8 @@ const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("deja", {
   openDialog: (method, config) => ipcRenderer.invoke("dialog", method, config),
-  dataSync: async (channel, data) => {
-    let validChannels = ["getVersion"];
+  get: async (channel, data) => {
+    let validChannels = ["versionNumber"];
     if (validChannels.includes(channel)) {
       try {
         const response = await ipcRenderer.invoke(channel, data);
@@ -22,7 +22,7 @@ contextBridge.exposeInMainWorld("deja", {
     }
   },
   receive: (channel, func) => {
-    let validChannels = ["response", "versionNumber"];
+    let validChannels = ["response"];
     if (validChannels.includes(channel)) {
       // strip event 
       ipcRenderer.on(channel, (event, ...args) => func(...args));
