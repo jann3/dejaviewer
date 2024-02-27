@@ -162,6 +162,9 @@ header:focus-visible {
   text-align: center;
   height: 100vh;
   cursor: wait !important;
+  animation: fadeIn ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .loader svg {
