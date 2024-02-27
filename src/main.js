@@ -196,7 +196,7 @@ function createWindow() {
   });
 
   win.webContents.on("did-start-loading", () => {
-    win.loadFile("loader.html");
+    win.loadFile(path.join(__dirname, "loader.html"));
   });
 
   win.webContents.on("did-finish-load", (event, isMainFrame) => {
@@ -332,7 +332,6 @@ function isAcceptableExt(filename) {
 
 function loadWithLoader(url) {
   win.loadFile(path.join(__dirname, "loader.html"));
-  win.show();
   win.webContents.once("did-finish-load", () => {
     setTimeout(() => {
       // add slight delay
