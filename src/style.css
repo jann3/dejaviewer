@@ -168,7 +168,7 @@ header:focus-visible {
 }
 
 .loader svg {
-  animation: scale 0.8s ease-in-out infinite alternate;
+  animation: scale 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes scale {
@@ -248,20 +248,6 @@ footer {
 
   100% {
     opacity: 0;
-  }
-}
-
-.spinOut {
-  animation: spinOut ease-in 0.1s;
-}
-
-@keyframes spinOut {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(60deg);
   }
 }
 
