@@ -5,7 +5,7 @@ const url = require("url");
 const fs = require("fs");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
-const { setModalOpen, isModalOpen } = require("./state");
+const { setModalOpen, isModalOpen, setChangeEvent, isChangeEvent } = require("./state");
 
 // squirrel installer events
 if (handleSquirrelEvent()) {
@@ -77,7 +77,7 @@ function handleSquirrelEvent() {
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win, globalfilename, changeEvent;
+let win, globalfilename;
 
 const mainpage = "main.html";
 const accepted_file_extensions = [
@@ -206,7 +206,7 @@ function createWindow() {
       win.isFullScreen() ||
       win.isMaximized() ||
       globalfilename == mainpage ||
-      changeEvent == true
+      isChangeEvent() === true
     ) {
       // If fullscreen, maximized, is mainpage, or is a changeEvent dont adjust size
       console.log("no size adjust");
@@ -356,7 +356,7 @@ function checkFile(url) {
     console.log(`globalfilename: ${globalfilename}`);
 
     // Set changeEvent
-    changeEvent = false;
+    setChangeEvent(false);
 
     // Load file
     loadWithLoader(globalfilename);
@@ -373,9 +373,9 @@ function checkFile(url) {
 
         // Set changeEvent status
         if (eventType === "change") {
-          changeEvent = true;
+          setChangeEvent(true);
         } else {
-          changeEvent = false;
+          setChangeEvent(false);
         }
 
         // Then reload
