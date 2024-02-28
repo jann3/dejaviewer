@@ -1,26 +1,25 @@
 # DejaViewer
 
-An image viewer primarily as a single purpose replacement for the detault Windows 'Photos' app - which doesn't hot load images anymore. Built using [Electron](https://electron.atom.io/).
+An image viewer built primarily as a single purpose replacement for the default Windows 'Photos' app - which doesn't hot reload files anymore. Built using [Electron](https://electron.atom.io/).
 
 ## Current Features
 
-* Single image viewer
-* Automatic 'hot' reloading when modifying image files
-* UI interface
-* Open images via dialog window or drag & drop
+* Image viewer for previewing glitchart based on Chrome
+* Hot reload - when modifying an image the viewer will refresh whenever the file is saved
+* Accessible user interface, images can also be drag and dropped
 
 ## How to donwload and run this project manually
 
-Currently this project requires [Node](https://nodejs.org/en/download/) and [Electron](https://electron.atom.io/) to be installed, once Node has been installed run the following npm command to install Electron:
+Currently this project requires [Node](https://nodejs.org/en/download/) to be installed, run the following npm command to install Electron globally:
 
 ```
 npm install -g electron 
 ```
 
-Then [download DejaViewer](https://github.com/Jann3/DejaViewer/archive/master.zip) or clone the project, then extract and run the following npm commands:
+Then [download dejaviewer](https://github.com/jann3/dejaviewer/archive/master.zip), then extract and run the following npm commands:
 
 ```
-cd DejaViewer
+cd dejaviewer
 npm install
 npm start
 ```
@@ -33,9 +32,10 @@ As this is a personal project I felt it wasn't necessary. However, I may add an 
 ## Future work
 
 * Build production (.exe) for Windows
+* Autoupdater
 * Navigate to other images
 * (considering) Adding version control and saving/exporting files
 
 ### Why did you make this?
 
-Simply, I needed a replacement image viewer for Windows that would reload files while I made changes to them to make [glitchart](https://g.litch.art/).
+Simply, I needed a replacement image viewer on Windows for making [glitchart](https://g.litch.art/).
