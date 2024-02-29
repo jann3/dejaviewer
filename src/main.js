@@ -6,6 +6,7 @@ const fs = require("fs");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
 const { setModalOpen, isModalOpen, setChangeEvent, isChangeEvent } = require("./state");
+const acceptedFileExtensions = require("./acceptedFileExtensions");
 
 // squirrel installer events
 if (handleSquirrelEvent()) {
@@ -80,24 +81,6 @@ function handleSquirrelEvent() {
 let win, globalfilename;
 
 const mainpage = "main.html";
-const acceptedFileExtensions = [
-  "gif",
-  "jpeg",
-  "jpg",
-  "png",
-  "webp",
-  "avif",
-  "ico",
-  "bmp",
-  "jfif",
-  "pjpeg",
-  "pjp",
-  "svg",
-  "svgz",
-  "tiff",
-  "tif",
-  "xbm",
-];
 
 function createWindow() {
   // Check CLI params
@@ -387,6 +370,10 @@ ipcMain.handle("versionNumber", async (event) => {
     console.log("data ready");
     resolve({ data: app.getVersion() });
   });
+});
+
+ipcMain.handle("getAcceptedFileExtensions", () => {
+  return acceptedFileExtensions;
 });
 
 const modalStatusMapping = {
