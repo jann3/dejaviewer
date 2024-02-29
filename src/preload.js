@@ -1,6 +1,15 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("deja", {
+  getAcceptedFileExtensions: async () => {
+    try {
+      // Invoke IPC to fetch acceptedFileExtensions from the main process
+      return await ipcRenderer.invoke("getAcceptedFileExtensions");
+    } catch (error) {
+      console.error("Error getting accepted file extensions:", error);
+      return [];
+    }
+  },
   openDialog: (method, config) => ipcRenderer.invoke("dialog", method, config),
   get: async (channel, data) => {
     let validChannels = ["versionNumber"];
@@ -9,7 +18,7 @@ contextBridge.exposeInMainWorld("deja", {
         const response = await ipcRenderer.invoke(channel, data);
         return response.data;
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         throw error;
       }
     }
