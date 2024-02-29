@@ -369,14 +369,8 @@ function checkFile(url) {
         // If modified file is global reload
         console.log(`modified file is global: ${filename}`);
 
-        // Set changeEvent status
-        if (eventType === "change") {
-          setChangeEvent(true);
-        } else {
-          setChangeEvent(false);
-        }
-
-        // Then reload
+        // Set setChangeEvent to true on change event and reload
+        setChangeEvent(eventType === "change");
         win.reload();
       } else {
         // Else close the watcher
