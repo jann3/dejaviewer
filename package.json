@@ -30,6 +30,7 @@
     "electron-winstaller": "^5.2.1"
   },
   "dependencies": {
+    "electron-updater": "^6.1.8",
     "image-size": "^1.1.1",
     "util.promisify": "^1.1.2"
   },
