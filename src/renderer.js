@@ -1,3 +1,5 @@
+let acceptedFileExtensions = [];
+
 deja.receive("response", (message) => {
     console.log(`response from main: ${message}`);
 
@@ -16,7 +18,18 @@ async function getVersion() {
     }
 }
 
+const getFileExtensions = async () => {
+    try {
+        acceptedFileExtensions = await deja.getAcceptedFileExtensions();
+        console.log(acceptedFileExtensions);
+        // Now you have access to the acceptedFileExtensions array as a const variable
+    } catch (error) {
+        console.error('Error getting accepted file extensions:', error);
+    }
+};
+
 window.onload = function () {
+    getFileExtensions();
     getVersion();
     addEventListeners();
 }
@@ -172,25 +185,7 @@ function openFile() {
         filters: [
             {
                 name: "All Image Files",
-                extensions: [
-                    "jpg",
-                    "jpeg",
-                    "png",
-                    "gif",
-                    "webp",
-                    "ico",
-                    "bmp",
-                    "jfif",
-                    "pjpeg",
-                    "pjp",
-                    "svg",
-                    "svgz",
-                    "tiff",
-                    "tif",
-                    "webp",
-                    "avif",
-                    "xbm",
-                ],
+                extensions: acceptedFileExtensions,
             },
             { name: "JPEG", extensions: ["jpg", "jpeg"] },
             { name: "PNG", extensions: ["png"] },
