@@ -80,7 +80,7 @@ function handleSquirrelEvent() {
 let win, globalfilename;
 
 const mainpage = "main.html";
-const accepted_file_extensions = [
+const acceptedFileExtensions = [
   "gif",
   "jpeg",
   "jpg",
@@ -305,25 +305,22 @@ function fixPath(url) {
 }
 
 function isAcceptableExt(filename) {
-  // No filename, return false
-  if (filename === undefined) return false;
+  // Return false if filename is undefined or empty
+  if (!filename) return false;
 
-  // Extract file extension if dot
-  let file_extension = filename.split(".").pop().toLowerCase();
+  // Extract file extension
+  const fileExtension = filename.split('.').pop().toLowerCase();
 
-  // Filter acceptable extensions by the current file extension
-  let isAcceptable = accepted_file_extensions.filter(
-    (ext) => ext === file_extension
-  );
+  // Check if the file extension is in the accepted extensions list
+  const isAcceptable = acceptedFileExtensions.includes(fileExtension);
 
-  // Return false if unacceptable, true if acceptable
-  if (!isAcceptable.length) {
-    console.log(`unacceptable: ${file_extension}`);
-    return false;
+  // Log and return the result
+  if (isAcceptable) {
+    console.log(`accepted: ${fileExtension}`);
   } else {
-    console.log(`accepted: ${file_extension}`);
-    return true;
+    console.log(`unacceptable: ${fileExtension}`);
   }
+  return isAcceptable;
 }
 
 function loadWithLoader(url) {
