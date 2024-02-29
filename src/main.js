@@ -117,11 +117,9 @@ function createWindow() {
     // Not a thing
   }
 
-  let dir = "";
   if (!globalfilename || !isAcceptableExt(globalfilename)) {
     // If no global or unacceptable file set it to the default page
     globalfilename = mainpage;
-    dir = __dirname;
   }
 
   // Create the browser window.
@@ -181,7 +179,7 @@ function createWindow() {
   // load mainpage
   win.loadURL(
     url.format({
-      pathname: path.join(dir, globalfilename),
+      pathname: path.join(__dirname, globalfilename),
       protocol: "file:",
       slashes: true,
     })
