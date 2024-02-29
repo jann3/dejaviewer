@@ -296,14 +296,12 @@ function createWindow() {
 }
 
 function fixPath(url) {
-  // Normalize path. Forward slashes become backslashes
-  url = path.normalize(url);
-  // Strip file from path
+  // Normalize path and strip file protocol, decodeURIComponent to fix spaces 
   if (url.startsWith("file:")) {
-    url = url.substring(6);
+    return decodeURIComponent(url.substring(6));
+  } else {
+    return decodeURIComponent(url);
   }
-  // Returned decoded URI. For example %20 becomes whitespace
-  return decodeURI(url);
 }
 
 function isAcceptableExt(filename) {
