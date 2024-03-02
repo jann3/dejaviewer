@@ -21,45 +21,14 @@
   ],
   "author": "jann3",
   "license": "MIT",
-  "devDependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "electron": "^29.0.1",
-    "electron-packager": "^17.1.2",
-    "electron-winstaller": "^5.2.1"
-  },
   "dependencies": {
     "electron-updater": "^6.1.8",
     "image-size": "^1.1.1",
     "util.promisify": "^1.1.2"
   },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "authors": "jann3",
-            "description": "Image viewer with hot loading"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+  "devDependencies": {
+    "electron": "^29.1.0",
+    "electron-packager": "^17.1.2",
+    "electron-winstaller": "^5.2.1"
   }
 }
