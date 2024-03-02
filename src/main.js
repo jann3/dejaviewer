@@ -367,7 +367,6 @@ ipcMain.on("filepath", (event, ipcurl) => {
 
 ipcMain.handle("versionNumber", async (event) => {
   return new Promise(resolve => {
-    console.log("data ready");
     resolve({ data: app.getVersion() });
   });
 });
@@ -406,7 +405,6 @@ ipcMain.on("error", (event, message) => {
 // initialization and is ready to create browser windows.
 
 app.whenReady().then(() => {
-  app.allowRendererProcessReuse = true;
   createWindow();
 
   // handle dialog external params
