@@ -251,6 +251,20 @@ footer {
   }
 }
 
+.spinOut {
+  animation: spinOut ease-in 0.1s;
+}
+
+@keyframes spinOut {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(60deg);
+  }
+}
+
 h1 {
   font-size: 1.6rem;
 }
