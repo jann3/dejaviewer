@@ -218,6 +218,20 @@ section.overlay {
   font-size: 1.2rem;
 }
 
+kbd {
+  background-color: var(--main-bg-shade);
+  border-radius: 4px;
+  border: 1px solid #000;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.2),
+    0 2px 0 0 rgba(255, 255, 255, 0.4) inset;
+  color: var(--main-color);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 2px 5px;
+  white-space: nowrap;
+}
+
 footer {
   padding-top: 2em;
   font-size: 1rem;
