@@ -81,7 +81,8 @@ li div {
   padding-top: 1rem;
 }
 
-input[type=button] {
+/* high contrast browse button */
+input[type=button].contrast {
   pointer-events: auto;
   cursor: pointer;
   background-color: var(--main-contrast-color);
@@ -94,55 +95,61 @@ input[type=button] {
   transition: all .1s ease-out;
 }
 
-input[type=button]:hover,
-input[type=button]:focus {
+input[type=button].contrast:hover,
+input[type=button].contrast:focus {
   pointer-events: auto;
   background-color: color-mix(in srgb, var(--main-contrast-color) 85%, #ffffff);
 }
 
-input[type=button]:focus,
-input[type=button]:focus-visible {
+input[type=button].contrast:focus,
+input[type=button].contrast:focus-visible {
   outline-color: var(--main-contrast-color);
 }
 
-input[type=button]:active {
+input[type=button].contrast:active {
   transform: translate(5px, 5px);
   box-shadow: 0px 0px 0px 0px color-mix(in srgb, var(--main-contrast-color) 75%, #000000);
-  /* #650428 */
 }
 
+/* buttons in header */
 header {
   pointer-events: auto;
-  cursor: pointer;
   position: absolute;
   text-align: center;
   vertical-align: middle;
-  font-size: 1.6rem;
-  line-height: 1.4rem;
-  font-weight: 600;
   right: 1.4rem;
   top: 1.4rem;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+header input[type=button] {
+  cursor: pointer;
+  font-size: 1.8rem;
+  line-height: 1rem;
+  font-weight: 600;
   border-radius: 50%;
   font-family: var(--main-font);
-  width: 1.6rem;
-  height: 1.6rem;
-  padding: 0.16rem 0.2rem 0.09rem 0.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0.2rem 0.2rem 0.3rem 0.3rem;
   /* styles that change */
   color: var(--main-side-shade);
   background-color: var(--main-bg-color);
   border: 3px solid var(--main-side-shade);
 }
 
-header:hover,
-header:focus {
+header input[type=button]:hover,
+header input[type=button]:focus {
   color: var(--main-side-color);
   background-color: var(--main-bg-color);
   border: 3px solid var(--main-side-color);
 }
 
-header:focus,
-header:focus-visible {
+header input[type=button]:focus,
+header input[type=button]:focus-visible {
   outline-color: var(--main-contrast-color);
   color: var(--main-color);
 }
@@ -297,14 +304,14 @@ h3 {
     grid-template-rows: 1fr 1fr;
   }
 
-  header {
+  header input[type=button] {
     color: var(--main-bg-color);
     background-color: var(--main-side-shade);
     border-color: var(--main-bg-color);
   }
 
-  header:hover,
-  header:focus {
+  header input[type=button]:hover,
+  header input[type=button]:focus {
     color: var(--main-color);
     background-color: var(--main-side-color);
     border-color: var(--main-bg-color);
@@ -321,7 +328,6 @@ h3 {
 }
 
 /* svg logo styling */
-
 .cls-1 {
   font-size: 77.74px;
   font-family: var(--main-font-accent);
