@@ -113,7 +113,7 @@ function toggleButton(target) {
         targetButton.classList.add("spinOut");
         setTimeout(() => {
             // after animation switch icon
-            targetButton.innerText = dataAlt;
+            targetButton.value = dataAlt;
             targetButton.classList.remove("spinOut");
         }, 100);
     } else if (dataState === "true") {
@@ -122,7 +122,7 @@ function toggleButton(target) {
         targetButton.classList.add("spinOut");
         setTimeout(() => {
             // after animation reset the icon
-            targetButton.innerText = dataInitial;
+            targetButton.value = dataInitial;
             targetButton.classList.remove("spinOut");
         }, 100);
     } else {
@@ -137,16 +137,16 @@ function toggleOverlaySync(targetOverlay, targetButton) {
     setTimeout(() => {
         // sync states after animations
         if (syncOverlay.classList.contains("fadeOut")) {
-            syncButton.innerText = syncButton.dataset.initial;
+            syncButton.value = syncButton.dataset.initial;
         } else if (syncOverlay.classList.contains("fadeIn")) {
-            syncButton.innerText = syncButton.dataset.alt;
+            syncButton.value = syncButton.dataset.alt;
         } else {
             // do nothing
         }
     }, 600);
 }
 
-function toggleModalStatus(target) {
+function toggleModalStatusOnMain(target) {
     const targetOverlay = document.getElementById(target);
 
     setTimeout(() => {
@@ -215,7 +215,7 @@ function addEventListeners() {
         toggleButton("help-button");
         toggleOverlaySync("help-overlay", "help-button");
         toggleDisable("browse-button");
-        toggleModalStatus("help-overlay");
+        toggleModalStatusOnMain("help-overlay");
         toggleAriaHidden("main-intro");
     });
     helpButton.addEventListener("keyup", handleKeypPress);
