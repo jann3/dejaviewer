@@ -201,7 +201,7 @@ function openFile() {
 function handleKeypPress(event) {
     // handler to assign keys for non-button button
     if (event.key === "Enter" || event.key === " ") {
-        document.getElementById("help-button").click();
+        document.getElementById(event.target.id).click();
     }
 }
 
@@ -218,5 +218,4 @@ function addEventListeners() {
         toggleModalStatusOnMain("help-overlay");
         toggleAriaHidden("main-intro");
     });
-    helpButton.addEventListener("keyup", handleKeypPress);
 }
