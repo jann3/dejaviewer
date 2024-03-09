@@ -122,6 +122,22 @@ function createWindow() {
     }
   });
 
+  function getDisplayMode() {
+    let displayMode = settings.get("displayMode");
+    if (displayMode === undefined) {
+      // If "displayMode" doesn't exist, set a default value
+      displayMode = "osdefault";
+      // Store the default value in electron-settings
+      settings.set("displayMode", displayMode);
+    }
+    console.log(`displayMode: ${displayMode}`);
+    return displayMode;
+  }
+
+  function setDisplayMode(mode) {
+    win.webContents.send("displayMode", mode);
+  }
+
   // Keypress commands
   win.webContents.on("before-input-event", (event, input) => {
     if (input.isAutoRepeat === true) {
@@ -266,6 +282,10 @@ function createWindow() {
         .catch((err) => console.error(err));
     } // end size adjust
 
+    //get displayMode and set on renderer
+    const displayMode = getDisplayMode();
+    setDisplayMode(displayMode);
+
     // Show loaded file
     win.show();
   });
@@ -389,6 +409,14 @@ ipcMain.on("modalStatus", (event, message) => {
   } else {
     console.log(`modalStatus ${message} not recognized`);
   }
+});
+
+ipcMain.handle("saveDisplayMode", async (event, mode) => {
+  console.log(`attempting to save display mode: ${mode}`);
+  settings.set("displayMode", mode);
+  return new Promise(resolve => {
+    resolve({ mode: settings.get("displayMode") })
+  });
 });
 
 // receive log messages from renderer
