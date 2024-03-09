@@ -7,6 +7,7 @@ const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
 const { setModalOpen, isModalOpen, setChangeEvent, isChangeEvent } = require("./state");
 const acceptedFileExtensions = require("./acceptedFileExtensions");
+const settings = require("electron-settings");
 
 // squirrel installer events
 if (handleSquirrelEvent()) {
