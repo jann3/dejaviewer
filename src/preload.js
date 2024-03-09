@@ -31,10 +31,22 @@ contextBridge.exposeInMainWorld("deja", {
     }
   },
   receive: (channel, func) => {
-    let validChannels = ["response"];
+    let validChannels = ["response", "displayMode"];
     if (validChannels.includes(channel)) {
       // strip event 
       ipcRenderer.on(channel, (event, ...args) => func(...args));
+    }
+  },
+  saveDisplayMode: async (mode) => {
+    let validModes = ["osdefault", "darkmode", "lightmode"];
+    if (validModes.includes(mode)) {
+      try {
+        const response = await ipcRenderer.invoke("saveDisplayMode", mode);
+        return response.mode;
+      } catch (error) {
+        console.error("Error setting display mode:", error);
+        throw error;
+      }
     }
   }
 });
