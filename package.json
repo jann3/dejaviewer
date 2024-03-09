@@ -22,6 +22,7 @@
   "author": "jann3",
   "license": "MIT",
   "dependencies": {
+    "electron-settings": "^3.2.0",
     "electron-updater": "^6.1.8",
     "image-size": "^1.1.1",
     "util.promisify": "^1.1.2"
