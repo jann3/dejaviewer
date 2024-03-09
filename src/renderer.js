@@ -8,11 +8,32 @@ deja.receive("response", (message) => {
     }
 });
 
+deja.receive("displayMode", (mode) => {
+    console.log(`response from main: ${mode}`);
+
+    const fakeEvent = {
+        target: {
+            id: `${mode}-button`
+        }
+    };
+
+    if (mode === "darkmode") {
+        loadDisplayMode("darkmode");
+        clearAndSetButton(fakeEvent);
+    } else if (mode === "lightmode") {
+        loadDisplayMode("lightmode");
+        clearAndSetButton(fakeEvent);
+    } else {
+        //osdefault
+    }
+});
+
 async function getVersion() {
     try {
         const message = await window.deja.get("versionNumber");
         console.log(`response to version: ${message}`);
         document.getElementById("versionFooter").innerHTML = `v.${message}`;
+        document.getElementById("versionFooter").setAttribute("aria-label", `version ${message}`);
     } catch (error) {
         console.error(`error fetching version: ${error}`);
     }
@@ -21,8 +42,6 @@ async function getVersion() {
 const getFileExtensions = async () => {
     try {
         acceptedFileExtensions = await deja.getAcceptedFileExtensions();
-        console.log(acceptedFileExtensions);
-        // Now you have access to the acceptedFileExtensions array as a const variable
     } catch (error) {
         console.error('Error getting accepted file extensions:', error);
     }
@@ -205,9 +224,65 @@ function handleKeypPress(event) {
     }
 }
 
+function loadDisplayMode(mode) {
+    if (mode === "darkmode") {
+        removeCSS("lightmode.css");
+        loadCSS("darkmode.css");
+    } else if (mode === "lightmode") {
+        removeCSS("darkmode.css");
+        loadCSS("lightmode.css");
+    } else {
+        removeCSS("lightmode.css");
+        removeCSS("darkmode.css");
+    }
+}
+
+async function setDisplayMode(mode) {
+    console.log(`saving display mode: ${mode}`);
+    try {
+        await window.deja.saveDisplayMode(mode);
+    } catch (error) {
+        console.error(`error saving display mode: ${error}`);
+    }
+}
+
+function removeCSS(url) {
+    const link = document.querySelector(`link[href="${url}"]`);
+    if (link) {
+        link.parentNode.removeChild(link);
+    }
+}
+
+function loadCSS(url) {
+    // Create a link element
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+
+    // Append the link element to the head of the document
+    document.head.appendChild(link);
+}
+
+function clearAndSetButton(event) {
+    const buttons = document.querySelectorAll(".button-group input");
+    buttons.forEach(button => {
+
+        if (button.id === event.target.id) {
+            button.setAttribute("aria-selected", true);
+        } else {
+            button.removeAttribute("aria-selected");
+        }
+    });
+}
+
 function addEventListeners() {
     const browseButton = document.getElementById("browse-button");
     const helpButton = document.getElementById("help-button");
+
+    const osdefaultButton = document.getElementById("osdefault-button");
+    const darkmodeButton = document.getElementById("darkmode-button");
+    const lightmodeButton = document.getElementById("lightmode-button");
 
     browseButton.addEventListener("click", openFile);
     helpButton.addEventListener("click", function () {
@@ -217,5 +292,24 @@ function addEventListeners() {
         toggleDisable("browse-button");
         toggleModalStatusOnMain("help-overlay");
         toggleAriaHidden("main-intro");
+    });
+
+    osdefaultButton.addEventListener("click", function (event) {
+        console.log(`clicked: ${event.target.id}`);
+        loadDisplayMode("osdefault");
+        setDisplayMode("osdefault");
+        clearAndSetButton(event);
+    });
+    darkmodeButton.addEventListener("click", function (event) {
+        console.log(`clicked: ${event.target.id}`);
+        loadDisplayMode("darkmode");
+        setDisplayMode("darkmode");
+        clearAndSetButton(event);
+    });
+    lightmodeButton.addEventListener("click", function (event) {
+        console.log(`clicked: ${event.target.id}`);
+        loadDisplayMode("lightmode");
+        setDisplayMode("lightmode");
+        clearAndSetButton(event);
     });
 }
