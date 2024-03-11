@@ -226,7 +226,11 @@ header input[type=button]:focus-visible {
   font-family: var(--main-font);
   background-color: var(--main-bg-color);
   display: none;
+}
+
+dialog {
   overflow: hidden;
+  border-width: 0px;
 }
 
 #drag-overlay {
@@ -244,11 +248,11 @@ header input[type=button]:focus-visible {
   display: block;
 }
 
-section.overlay {
+dialog.overlay {
   padding: 1rem 3rem 1rem 3rem;
 }
 
-section>h2:not(:nth-child(2)) {
+dialog>h2:not(:nth-child(2)) {
   padding-top: 2rem;
 }
 
