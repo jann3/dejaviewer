@@ -138,11 +138,43 @@ function createWindow() {
     win.webContents.send("displayMode", mode);
   }
 
+  function openFile() {
+    console.log("openFile called");
+
+    const dialogConfig = {
+      title: 'Select a file',
+      buttonLabel: 'Open',
+      properties: ['openFile'],
+      filters: [
+        {
+          name: "All Image Files",
+          extensions: acceptedFileExtensions,
+        },
+        { name: "JPEG", extensions: ["jpg", "jpeg"] },
+        { name: "PNG", extensions: ["png"] },
+        { name: "GIF", extensions: ["gif"] },
+        { name: "BMP", extensions: ["bmp"] },
+        { name: "TIFF", extensions: ["tif", "tiff"] },
+        { name: "WebP", extensions: ["webp"] },
+        { name: "AVIF", extensions: ["avif"] },],
+    };
+
+    dialog["showOpenDialog"](dialogConfig).then((response) => {
+      console.log(`receiving dialog: ${response}`);
+      //load selected filePath
+      checkFile(response.filePaths[0]);
+    });
+  }
+
   // Keypress commands
   win.webContents.on("before-input-event", (event, input) => {
     if (input.isAutoRepeat === true) {
       // Repeating keypress do nothing
       event.preventDefault();
+    } else if (input.control && input.key.toLowerCase() == "o") {
+      // CTRL + O pressed
+      console.log("CTRL + O pressed");
+      openFile();
     } else if (input.key.toLowerCase() == "escape" && globalfilename == mainpage && isModalOpen() === true) {
       // Close modal
       event.preventDefault();
