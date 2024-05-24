@@ -119,6 +119,7 @@ function createWindow() {
       contextIsolation: true,
       enableRemoteModule: false,
       preload: path.join(__dirname, "preload.js"),
+      show: false,
     }
   });
 
@@ -319,7 +320,7 @@ function createWindow() {
     setDisplayMode(displayMode);
 
     // Show loaded file
-    win.show();
+    win.showInactive();
   });
 
   // Emitted when the window is closed.
