@@ -49,5 +49,4 @@ installer in the near future as other people may find this useful.
 ### Why did you make this?
 
 Simply, I needed a replacement image viewer on Windows for making
-[glitchart](https://en.wikipedia.o
-rg/wiki/Glitch_art).
+[glitchart](https://en.wikipedia.org/wiki/Glitch_art).
