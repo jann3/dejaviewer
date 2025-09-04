@@ -28,7 +28,7 @@
     "util.promisify": "^1.1.2"
   },
   "devDependencies": {
-    "electron": "^29.4.1",
+    "electron": "^35.7.5",
     "electron-packager": "^17.1.2",
     "electron-winstaller": "^5.3.1"
   }
